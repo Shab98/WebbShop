@@ -1,70 +1,16 @@
 const express = require('express');
-const mongoose = require('mongoose');
 const app = express();
-
-const dbAddress = "localhost";
-const dbPort = "27017";
-const dbName = "webshop";
-var db = mongoose.connect(`mongodb://${dbAddress}:${dbPort}/${dbName}`, { useNewUrlParser: true });
-
-const Schema = mongoose.Schema;
-
-var sellerSchema = new Schema({
-    id: { type: String },
-    name: { type: String }
-});
-
-var Seller = mongoose.model('sellers', sellerSchema);
-
-var userSchema = new Schema({
-    id: { type: String },
-    fname: { type: String },
-    lname: { type: String },
-    email: { type: String },
-    password: { type: String }
-})
-
-var User = mongoose.model('users', userSchema);
-
-var categorySchema = new Schema({
-    name: { type: String }
-})
-
-var Category = mongoose.model('categories', categorySchema);
-
-var productSchema = new Schema({
-    id: { type: String },
-    name: { type: String },
-    description: { type: String },
-    price: { type: Number }
-})
-
-var Product = mongoose.model('products', userSchema);
-
-var reviewSchema = new Schema({
-    text: { type: String },
-    rating: { type: Number },
-    date: { type: Date }
-})
-
-var Review = mongoose.model('reviews', reviewSchema);
-
-var paymentSchema = new Schema({
-    id: { type: String },
-    name: { type: String },
-    cardnumber: { type: Number },
-    ccv: { type: Number },
-    month: { type: Number },
-    year: { type: Number }
-})
-
-var PaymentInfo = mongoose.model('paymentinfos', paymentSchema);
 
 app.use(express.json());
 
 app.listen(3000, function() {
     console.log('App is listening on port 3000');
 })
+
+const schema = require('db');
+//Remember to access the schema with schema.<schema_name>
+//For example:
+//schema.User
 
 //GET METHODS
 
