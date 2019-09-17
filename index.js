@@ -6,7 +6,7 @@ const Schema = mongoose.Schema;
 
 const dbAddress = "localhost";
 const dbPort = "27017";
-const dbName = "";
+const dbName = "webshop";
 var db = mongoose.connect(`mongodb://${dbAddress}:${dbPort}/${dbName}`, { useNewUrlParser: true});
 
 app.use(express.json());
