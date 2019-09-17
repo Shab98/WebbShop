@@ -1,16 +1,15 @@
 const express = require('express');
 const app = express();
+const schema = require('db');
+//Remember to access the schema with schema.<schema_name>
+//For example:
+//schema.User
 
 app.use(express.json());
 
 app.listen(3000, function() {
     console.log('App is listening on port 3000');
 })
-
-const schema = require('db');
-//Remember to access the schema with schema.<schema_name>
-//For example:
-//schema.User
 
 //GET METHODS
 
