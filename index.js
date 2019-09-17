@@ -88,11 +88,11 @@ app.post('/api/categories', function(req, res){
 
 });
 
-app.post('/api/products', function(req, res){
+app.post('/api/categories/:category/products', function(req, res){
 
 });
 
-app.post('/api/reviews', function(req, res){
+app.post('/api/categories/:category/products/:product/reviews', function(req, res){
 
 });
 
@@ -102,12 +102,12 @@ app.post('/api/paymentinfos', function(req, res){
 
 //DELETE METHODS
 
-app.delete('/api/sellers/:id', function(req, res){
+app.delete('/api/sellers/:seller', function(req, res){
     res.send(req.params.id);
     console.log('Received connection');
 });
 
-app.delete('/api/users/:id', function(req, res){
+app.delete('/api/users/:user', function(req, res){
     res.send(req.params.id);
     console.log('Received connection');
 });
@@ -122,6 +122,11 @@ app.delete('/api/categories/:category/products/:product', function(req, res){
     console.log('Received connection');
 });
 
+app.delete('/api/categories/:category/products/:product/reviews/:review', function(req, res){
+    res.send(req.params.id);
+    console.log('Received connection');
+});
+
 app.delete('/api/users/:user/paymentinfos/:paymentinfo', function(req, res){
     res.send(req.params.id);
     console.log('Received connection');
@@ -129,54 +134,64 @@ app.delete('/api/users/:user/paymentinfos/:paymentinfo', function(req, res){
 
 //EDIT METHODS (OVERWRITE)
 
-app.put('/api/sellers/:id', function(req, res){
+app.put('/api/sellers/:seller', function(req, res){
     res.send(req.params.id);
     console.log('Received connection');
 });
 
-app.put('/api/users/:id', function(req, res){
+app.put('/api/users/:user', function(req, res){
     res.send(req.params.id);
     console.log('Received connection');
 });
 
-app.put('/api/products/:id', function(req, res){
+app.put('/api/categories/:category', function(req, res){
     res.send(req.params.id);
     console.log('Received connection');
 });
 
-app.put('/api/categories/:id', function(req, res){
+app.put('/api/categories/:category/products/:product', function(req, res){
     res.send(req.params.id);
     console.log('Received connection');
 });
 
-app.put('/api/paymentinfos/:id', function(req, res){
+app.put('/api/categories/:category/products/:product/reviews/:review', function(req, res){
+    res.send(req.params.id);
+    console.log('Received connection');
+});
+
+app.put('/api/users/:user/paymentinfos/:paymentinfo', function(req, res){
     res.send(req.params.id);
     console.log('Received connection');
 });
 
 //EDIT METHODS
 
-app.patch('/api/sellers/:id', function(req, res){
+app.patch('/api/sellers/:seller', function(req, res){
     res.send(req.params.id);
     console.log('Received connection');
 });
 
-app.patch('/api/users/:id', function(req, res){
+app.patch('/api/users/:user', function(req, res){
     res.send(req.params.id);
     console.log('Received connection');
 });
 
-app.patch('/api/products/:id', function(req, res){
+app.patch('/api/products/:product', function(req, res){
     res.send(req.params.id);
     console.log('Received connection');
 });
 
-app.patch('/api/categories/:id', function(req, res){
+app.patch('/api/categories/:category/products/:product', function(req, res){
     res.send(req.params.id);
     console.log('Received connection');
 });
 
-app.patch('/api/paymentinfos/:id', function(req, res){
+app.patch('/api/categories/:category/products/:product/reviews/:review', function(req, res){
+    res.send(req.params.id);
+    console.log('Received connection');
+});
+
+app.patch('/api/users/:user/paymentinfos/:paymentinfo', function(req, res){
     res.send(req.params.id);
     console.log('Received connection');
 });
