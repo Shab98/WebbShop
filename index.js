@@ -1,13 +1,14 @@
 const express = require('express');
 const app = express();
-const schema = require('db');
+
+const schema = require('./db');
 //Remember to access the schema with schema.<schema_name>
 //For example:
 //schema.User
 
 app.use(express.json());
 
-app.listen(3000, function() {
+app.listen(3001, function() {
     console.log('App is listening on port 3000');
 })
 
@@ -78,7 +79,13 @@ app.get('/api/users/:user/paymentinfos/:paymentinfo', function(req, res) {
 //POST METHODS
 
 app.post('/api/sellers', function(req, res) {
-
+    var seller = new schema.Seller(req.body)
+    seller.save(function(err){
+        if(err)
+            return next(err);
+        else
+            res.status(201).json(seller);
+    })
 });
 
 app.post('/api/users', function(req, res) {
