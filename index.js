@@ -2,12 +2,19 @@ const express = require('express');
 const mongoose = require('mongoose');
 const app = express();
 
-const Schema = mongoose.Schema;
-
 const dbAddress = "localhost";
 const dbPort = "27017";
 const dbName = "webshop";
 var db = mongoose.connect(`mongodb://${dbAddress}:${dbPort}/${dbName}`, { useNewUrlParser: true});
+
+const Schema = mongoose.Schema;
+
+var sellerSchema = new Schema({
+    id : { type : String },
+    name : { type : String }
+});
+
+var Seller = mongoose.model('sellers', sellerSchema);
 
 app.use(express.json());
 
