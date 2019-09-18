@@ -36,7 +36,7 @@ var userSchema = new Schema({
     lastName : { type : String , required : true },
     email : { type : String , required : true },
     password : { type : String , required : true },
-    paymentData : { type : [paymentDataSchema] }
+    paymentDatas : { type : [paymentDataSchema] }
 })
 
 var categorySchema = new Schema({
@@ -59,7 +59,6 @@ var reviewSchema = new Schema({
 })
 
 var paymentDataSchema = new Schema({
-    id: { type : String , required : true },
     nameOnCard: { type : String , required : true },
     cardNumber: { type : Number , required : true },
     ccv: { type : Number , required : true },
@@ -79,4 +78,4 @@ module.exports.User = User;
 module.exports.Category = Category;
 module.exports.Product = Product;
 module.exports.Review = Review;
-module.exports.Pa = PaymentData;
+module.exports.PaymentData = PaymentData;

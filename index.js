@@ -91,6 +91,7 @@ app.post('/api/sellers', function(req, res, next) {
             return next(err);
         else
             res.status(201).json(seller);
+            console.log("DB: A Seller has been added");
     })
 });
 
@@ -101,6 +102,7 @@ app.post('/api/users', function(req, res, next) {
             return next(err);
         else
             res.status(201).json(user);
+            console.log("DB: A User has been added");
     })
 });
 
@@ -111,6 +113,7 @@ app.post('/api/categories', function(req, res, next) {
             return next(err);
         else
             res.status(201).json(category);
+            console.log("DB: A Category has been added");
     })
 });
 
@@ -122,6 +125,7 @@ app.post('/api/products', function(req, res, next) {
             return next(err);
         else
             res.status(201).json(product);
+            console.log("DB: A Product has been added");
     })
 });
 
@@ -129,9 +133,6 @@ app.post('/api/products/:product/reviews', function(req, res, next) {
     var review = new schema.Review(req.body);
 
     productId = req.params.product;
-
-    console.log("product: " + productId);
-    console.log("Review object: " + review);
 
     schema.Product.updateOne(
         { id : productId }, 
@@ -150,10 +151,7 @@ app.post('/api/users/:user/paymentdatas', function(req, res, next) {
 
     user = req.params.user;
 
-    console.log("user: " + user);
-    console.log("Paymentdata object: " + paymentData);
-
-    schema.Product.updateOne(
+    schema.User.updateOne(
         { id : user }, 
         { $push : { paymentDatas : paymentData } },
         function(err,result){
