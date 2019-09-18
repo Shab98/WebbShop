@@ -86,7 +86,7 @@ app.get('/api/users/:user/paymentdatas/:paymentdata', function(req, res) {
 //TODO: findAndUpdate fix the fact that validation is not done
 app.post('/api/sellers', function(req, res, next) {
     var seller = new schema.Seller(req.body)
-    
+
     seller.save(function(err){
         if(err)
             return next(err);
@@ -132,11 +132,11 @@ app.post('/api/products', function(req, res, next) {
 
 app.post('/api/products/:product/reviews', function(req, res, next) {
     var review = new schema.Review(req.body);
-    
+
     productId = req.params.product;
 
     schema.Product.findOneAndUpdate(
-        { id : productId }, 
+        { id : productId },
         { $push : { reviews : review } },
         { new : true, useFindAndModify : false },
         function(err,doc){
@@ -155,7 +155,7 @@ app.post('/api/users/:user/paymentdatas', function(req, res, next) {
     user = req.params.user;
 
     schema.User.findOneAndUpdate(
-        { id : user }, 
+        { id : user },
         { $push : { paymentDatas : paymentData } },
         { new : true, useFindAndModify : false },
         function(err,doc){
@@ -171,32 +171,50 @@ app.post('/api/users/:user/paymentdatas', function(req, res, next) {
 //DELETE METHODS
 
 app.delete('/api/sellers/:seller', function(req, res) {
-    res.send(req.params.id);
+    var id = req.params.id;
+    var seller = sellers[id];
+    delete sellers[id];
+    res.json(seller);
     console.log('Received connection');
 });
 
 app.delete('/api/users/:user', function(req, res) {
-    res.send(req.params.id);
+    var id = req.params.id;
+    var user = users[id];
+    delete users[id];
+    res.json(user);
     console.log('Received connection');
 });
 
 app.delete('/api/categories/:category', function(req, res) {
-    res.send(req.params.id);
+    var id = req.params.id;
+    var category = categories[id];
+    delete categories[id];
+    res.json(category);
     console.log('Received connection');
 });
 
 app.delete('/api/products/:product', function(req, res) {
-    res.send(req.params.id);
+    var id = req.params.id;
+    var product = products[id];
+    delete products[id];
+    res.json(product);
     console.log('Received connection');
 });
 
 app.delete('/api/products/:product/reviews/:review', function(req, res) {
-    res.send(req.params.id);
+    var id = req.params.id;
+    var review = reviews[id];
+    delete reviews[id];
+    res.json(review);
     console.log('Received connection');
 });
 
 app.delete('/api/users/:user/paymentdatas/:paymentdata', function(req, res) {
-    res.send(req.params.id);
+    var id = req.params.id;
+    var paymentdata = paymentdatas[id];
+    delete paymentdatas[id];
+    res.json(paymentdata);
     console.log('Received connection');
 });
 
