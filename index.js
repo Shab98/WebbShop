@@ -35,7 +35,7 @@ app.get('/api/products', function(req, res) {
     console.log('Received connection');
 });
 
-app.get('/api/reviews', function(req, res) {
+app.get('/api/products/:product/reviews', function(req, res) {
     res.send('List of reviews');
     console.log('Received connection');
 });
@@ -45,7 +45,7 @@ app.get('/api/categories', function(req, res) {
     console.log('Received connection');
 });
 
-app.get('/api/paymentinfos', function(req, res) {
+app.get('/api/users/:user/paymentinfos', function(req, res) {
     res.send('List of paymentinfos');
     console.log('Received connection');
 });
@@ -67,7 +67,12 @@ app.get('/api/categories/:id', function(req, res) {
     console.log('Received connection');
 });
 
-app.get('/api/categories/:category/products/:product', function(req, res) {
+app.get('/api/products/:product', function(req, res) {
+    res.send(req.params.id);
+    console.log('Received connection');
+});
+
+app.get('/api/products/:product/reviews/:review', function(req, res) {
     res.send(req.params.id);
     console.log('Received connection');
 });
@@ -90,22 +95,34 @@ app.post('/api/sellers', function(req, res) {
 });
 
 app.post('/api/users', function(req, res) {
-
+    var user = new schema.User(req.body)
+    user.save(function(err){
+        if(err)
+            return next(err);
+        else
+            res.status(201).json(user);
+    })
 });
 
 app.post('/api/categories', function(req, res) {
+    var category = new schema.Category(req.body)
+    category.save(function(err){
+        if(err)
+            return next(err);
+        else
+            res.status(201).json(category);
+    })
+});
+
+app.post('/api/products', function(req, res) {
 
 });
 
-app.post('/api/categories/:category/products', function(req, res) {
+app.post('/api/products/:product/reviews', function(req, res) {
 
 });
 
-app.post('/api/categories/:category/products/:product/reviews', function(req, res) {
-
-});
-
-app.post('/api/paymentinfos', function(req, res) {
+app.post('/api/users/:user/paymentinfos', function(req, res) {
 
 });
 
@@ -126,12 +143,12 @@ app.delete('/api/categories/:category', function(req, res) {
     console.log('Received connection');
 });
 
-app.delete('/api/categories/:category/products/:product', function(req, res) {
+app.delete('/api/products/:product', function(req, res) {
     res.send(req.params.id);
     console.log('Received connection');
 });
 
-app.delete('/api/categories/:category/products/:product/reviews/:review', function(req, res) {
+app.delete('/api/products/:product/reviews/:review', function(req, res) {
     res.send(req.params.id);
     console.log('Received connection');
 });
@@ -158,12 +175,12 @@ app.put('/api/categories/:category', function(req, res) {
     console.log('Received connection');
 });
 
-app.put('/api/categories/:category/products/:product', function(req, res) {
+app.put('/api/products/:product', function(req, res) {
     res.send(req.params.id);
     console.log('Received connection');
 });
 
-app.put('/api/categories/:category/products/:product/reviews/:review', function(req, res) {
+app.put('/api/products/:product/reviews/:review', function(req, res) {
     res.send(req.params.id);
     console.log('Received connection');
 });
@@ -185,17 +202,17 @@ app.patch('/api/users/:user', function(req, res) {
     console.log('Received connection');
 });
 
+app.patch('/api/categories/:category', function(req, res) {
+    res.send(req.params.id);
+    console.log('Received connection');
+});
+
 app.patch('/api/products/:product', function(req, res) {
     res.send(req.params.id);
     console.log('Received connection');
 });
 
-app.patch('/api/categories/:category/products/:product', function(req, res) {
-    res.send(req.params.id);
-    console.log('Received connection');
-});
-
-app.patch('/api/categories/:category/products/:product/reviews/:review', function(req, res) {
+app.patch('/api/products/:product/reviews/:review', function(req, res) {
     res.send(req.params.id);
     console.log('Received connection');
 });
