@@ -7,6 +7,24 @@ var db = mongoose.connect(`mongodb://${dbAddress}:${dbPort}/${dbName}`, { useNew
 
 const Schema = mongoose.Schema;
 
+//DB STRUCTURE:
+/*
+    seller{}
+    user{
+        paymentinfo{}
+    }
+    product{
+        reference to category
+        reviews{}
+    }
+    category{}
+
+    Seller is standalone,
+    user has inside its JSON paymentinfo,
+    product has inside its JSON the reference to find the category and the reviews,
+    category is standalone 
+*/
+
 var sellerSchema = new Schema({
     id: { type: String },
     name: { type: String }
@@ -14,21 +32,22 @@ var sellerSchema = new Schema({
 
 var userSchema = new Schema({
     id: { type: String },
-    fname: { type: String },
-    lname: { type: String },
+    firstName: { type: String },
+    lastName: { type: String },
     email: { type: String },
     password: { type: String }
 })
 
 var categorySchema = new Schema({
-    name: { type: String }
+    name: { type : String }
 })
 
 var productSchema = new Schema({
-    id: { type: String },
-    name: { type: String },
-    description: { type: String },
-    price: { type: Number }
+    id : { type: String },
+    name : { type: String },
+    description : { type: String },
+    price : { type: Number },
+    category : { type : String}
 })
 
 var reviewSchema = new Schema({
@@ -40,7 +59,7 @@ var reviewSchema = new Schema({
 var paymentSchema = new Schema({
     id: { type: String },
     name: { type: String },
-    cardnumber: { type: Number },
+    cardNumber: { type: Number },
     ccv: { type: Number },
     month: { type: Number },
     year: { type: Number }
@@ -58,4 +77,4 @@ module.exports.User = User;
 module.exports.Category = Category;
 module.exports.Product = Product;
 module.exports.Review = Review;
-module.exports.PaymentInfo = PaymentInfo;
+module.exports.Pa = PaymentInfo;

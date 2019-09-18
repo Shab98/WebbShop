@@ -1,7 +1,8 @@
 const express = require('express');
 const app = express();
-
 const schema = require('./db');
+
+
 //Remember to access the schema with schema.<schema_name>
 //For example:
 //schema.User
