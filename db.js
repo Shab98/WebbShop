@@ -26,16 +26,17 @@ const Schema = mongoose.Schema;
 */
 
 var sellerSchema = new Schema({
-    id: { type: String },
-    name: { type: String }
+    id : { type : String , required : true },
+    name : { type : String , required : true }
 });
 
 var userSchema = new Schema({
-    id: { type: String },
-    firstName: { type: String },
-    lastName: { type: String },
-    email: { type: String },
-    password: { type: String }
+    id : { type : String , required : true },
+    firstName : { type : String , required : true },
+    lastName : { type : String , required : true },
+    email : { type : String , required : true },
+    password : { type : String , required : true },
+    paymentData : { type : [paymentDataSchema] }
 })
 
 var categorySchema = new Schema({
@@ -43,38 +44,39 @@ var categorySchema = new Schema({
 })
 
 var productSchema = new Schema({
-    id : { type: String },
-    name : { type: String },
-    description : { type: String },
-    price : { type: Number },
-    category : { type : String}
+    id : { type : String , required : true },
+    name : { type : String , required : true },
+    description : { type : String , required : true },
+    price : { type : Number , required : true },
+    category : { type : String , required : true },
+    reviews : { type : [reviewSchema] }
 })
 
 var reviewSchema = new Schema({
-    text: { type: String },
-    rating: { type: Number },
-    date: { type: Date }
+    text: { type : String , required : true },
+    rating: { type : Number , required : true },
+    date: { type : Date }
 })
 
-var paymentSchema = new Schema({
-    id: { type: String },
-    name: { type: String },
-    cardNumber: { type: Number },
-    ccv: { type: Number },
-    month: { type: Number },
-    year: { type: Number }
+var paymentDataSchema = new Schema({
+    id: { type : String , required : true },
+    name: { type : String , required : true },
+    cardNumber: { type : Number , required : true },
+    ccv: { type : Number , required : true },
+    month: { type : Number , required : true },
+    year: { type : Number , required : true }
 })
 
 var Seller = mongoose.model('sellers', sellerSchema);
 var User = mongoose.model('users', userSchema);
 var Category = mongoose.model('categories', categorySchema);
-var Product = mongoose.model('products', userSchema);
+var Product = mongoose.model('products', productSchema);
 var Review = mongoose.model('reviews', reviewSchema);
-var PaymentInfo = mongoose.model('paymentinfos', paymentSchema);
+var PaymentData = mongoose.model('paymentdatas', paymentDataSchema);
 
 module.exports.Seller = Seller;
 module.exports.User = User;
 module.exports.Category = Category;
 module.exports.Product = Product;
 module.exports.Review = Review;
-module.exports.Pa = PaymentInfo;
+module.exports.Pa = PaymentData;
