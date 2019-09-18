@@ -40,7 +40,7 @@ var userSchema = new Schema({
 })
 
 var categorySchema = new Schema({
-    name: { type : String }
+    name: { type : String , required : true}
 })
 
 var productSchema = new Schema({
@@ -48,7 +48,7 @@ var productSchema = new Schema({
     name : { type : String , required : true },
     description : { type : String , required : true },
     price : { type : Number , required : true },
-    category : { type : String , required : true },
+    category : { type : String , required : true }, //Category is required for a product to exist!!! Design decision, can be changed
     reviews : { type : [reviewSchema] }
 })
 
@@ -60,7 +60,7 @@ var reviewSchema = new Schema({
 
 var paymentDataSchema = new Schema({
     id: { type : String , required : true },
-    name: { type : String , required : true },
+    nameOnCard: { type : String , required : true },
     cardNumber: { type : Number , required : true },
     ccv: { type : Number , required : true },
     month: { type : Number , required : true },

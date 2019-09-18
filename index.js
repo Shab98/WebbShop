@@ -134,13 +134,13 @@ app.post('/api/products/:product/reviews', function(req, res, next) {
     console.log("Review object: " + review);
 
     schema.Product.updateOne(
-        { id: productId }, 
-        { $push: { reviews: review } },
-        function(err,review){
+        { id : productId }, 
+        { $push : { reviews : review } },
+        function(err,result){
             if(err)
                 return next(err);
             else
-                res.status(201).json(review);
+                res.status(201).json(result);
         }
     );
 });
@@ -154,13 +154,13 @@ app.post('/api/users/:user/paymentdatas', function(req, res, next) {
     console.log("Paymentdata object: " + paymentData);
 
     schema.Product.updateOne(
-        { id: productId }, 
-        { $push: { reviews: review } },
-        function(err,review){
+        { id : user }, 
+        { $push : { paymentDatas : paymentData } },
+        function(err,result){
             if(err)
                 return next(err);
             else
-                res.status(201).json(review);
+                res.status(201).json(result);
         }
     );
 });
