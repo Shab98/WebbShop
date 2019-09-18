@@ -83,9 +83,10 @@ app.get('/api/users/:user/paymentdatas/:paymentdata', function(req, res) {
 });
 
 //POST METHODS
-
+//TODO: findAndUpdate fix the fact that validation is not done
 app.post('/api/sellers', function(req, res, next) {
     var seller = new schema.Seller(req.body)
+    
     seller.save(function(err){
         if(err)
             return next(err);
@@ -131,17 +132,19 @@ app.post('/api/products', function(req, res, next) {
 
 app.post('/api/products/:product/reviews', function(req, res, next) {
     var review = new schema.Review(req.body);
-
+    
     productId = req.params.product;
 
-    schema.Product.updateOne(
+    schema.Product.findOneAndUpdate(
         { id : productId }, 
         { $push : { reviews : review } },
-        function(err,result){
+        { new : true, useFindAndModify : false },
+        function(err,doc){
             if(err)
                 return next(err);
-            else
-                res.status(201).json(result);
+            if(doc == null)
+                return res.status(404).json("Product not found")
+            res.status(201).json(doc);
         }
     );
 });
@@ -151,14 +154,16 @@ app.post('/api/users/:user/paymentdatas', function(req, res, next) {
 
     user = req.params.user;
 
-    schema.User.updateOne(
+    schema.User.findOneAndUpdate(
         { id : user }, 
         { $push : { paymentDatas : paymentData } },
-        function(err,result){
+        { new : true, useFindAndModify : false },
+        function(err,doc){
             if(err)
                 return next(err);
-            else
-                res.status(201).json(result);
+            if(doc == null)
+                return res.status(404).json("User not found")
+            res.status(201).json(doc);
         }
     );
 });
