@@ -175,7 +175,6 @@ app.delete('/api/sellers/:seller', function(req, res) {
     var seller = sellers[id];
     delete sellers[id];
     res.json(seller);
-    console.log('Received connection');
 });
 
 app.delete('/api/users/:user', function(req, res) {
@@ -183,7 +182,6 @@ app.delete('/api/users/:user', function(req, res) {
     var user = users[id];
     delete users[id];
     res.json(user);
-    console.log('Received connection');
 });
 
 app.delete('/api/categories/:category', function(req, res) {
@@ -191,7 +189,6 @@ app.delete('/api/categories/:category', function(req, res) {
     var category = categories[id];
     delete categories[id];
     res.json(category);
-    console.log('Received connection');
 });
 
 app.delete('/api/products/:product', function(req, res) {
@@ -199,7 +196,6 @@ app.delete('/api/products/:product', function(req, res) {
     var product = products[id];
     delete products[id];
     res.json(product);
-    console.log('Received connection');
 });
 
 app.delete('/api/products/:product/reviews/:review', function(req, res) {
@@ -207,7 +203,6 @@ app.delete('/api/products/:product/reviews/:review', function(req, res) {
     var review = reviews[id];
     delete reviews[id];
     res.json(review);
-    console.log('Received connection');
 });
 
 app.delete('/api/users/:user/paymentdatas/:paymentdata', function(req, res) {
@@ -215,39 +210,62 @@ app.delete('/api/users/:user/paymentdatas/:paymentdata', function(req, res) {
     var paymentdata = paymentdatas[id];
     delete paymentdatas[id];
     res.json(paymentdata);
-    console.log('Received connection');
 });
 
 //EDIT METHODS (OVERWRITE)
 
 app.put('/api/sellers/:seller', function(req, res) {
-    res.send(req.params.id);
-    console.log('Received connection');
+    var id = req.params.id;
+    var updated_seller = {
+      "_id": id
+    }
+    sellers[id] = updated_seller;
+    res.json(updated_seller);
 });
 
 app.put('/api/users/:user', function(req, res) {
-    res.send(req.params.id);
-    console.log('Received connection');
+    var id = req.params.id;
+    var updated_user = {
+      "_id": id
+    }
+    users[id] = updated_user;
+    res.json(updated_user);
 });
 
 app.put('/api/categories/:category', function(req, res) {
-    res.send(req.params.id);
-    console.log('Received connection');
+    var id = req.params.id;
+    var updated_category = {
+      "_id": id
+    }
+    categories[id] = updated_category;
+    res.json(updated_category);
 });
 
 app.put('/api/products/:product', function(req, res) {
-    res.send(req.params.id);
-    console.log('Received connection');
+    var id = req.params.id;
+    var updated_product = {
+      "_id": id
+    }
+    products[id] = updated_product;
+    res.json(updated_product);
 });
 
 app.put('/api/products/:product/reviews/:review', function(req, res) {
-    res.send(req.params.id);
-    console.log('Received connection');
+    var id = req.params.id;
+    var updated_review = {
+      "_id": id
+    }
+    review[id] = updated_review;
+    res.json(updated_review);
 });
 
 app.put('/api/users/:user/paymentdatas/:paymentdata', function(req, res) {
-    res.send(req.params.id);
-    console.log('Received connection');
+    var id = req.params.id;
+    var updated_paymentdata = {
+      "_id": id
+    }
+    paymentdata[id] = updated_paymentdata;
+    res.json(updated_paymentdata);
 });
 
 //EDIT METHODS
