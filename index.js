@@ -116,8 +116,13 @@ app.get('/api/users/:user/paymentdatas/:paymentdata', function(req, res) {
 app.post('/api/sellers', function(req, res, next) {
     var seller = new schema.Seller(req.body)
 
+<<<<<<< HEAD
     seller.save(function(err) {
         if (err)
+=======
+    seller.save(function(err){
+        if(err)
+>>>>>>> b03d4cd61092fdcc7e8cf9aa17dd16b95bdf3b62
             return next(err);
         else
             res.status(201).json(seller);
@@ -164,9 +169,18 @@ app.post('/api/products/:product/reviews', function(req, res, next) {
 
     productId = req.params.product;
 
+<<<<<<< HEAD
     schema.Product.findOneAndUpdate({ id: productId }, { $push: { reviews: review } }, { new: true, useFindAndModify: false },
         function(err, doc) {
             if (err)
+=======
+    schema.Product.findOneAndUpdate(
+        { id : productId },
+        { $push : { reviews : review } },
+        { new : true, useFindAndModify : false },
+        function(err,doc){
+            if(err)
+>>>>>>> b03d4cd61092fdcc7e8cf9aa17dd16b95bdf3b62
                 return next(err);
             if (doc == null)
                 return res.status(404).json("Product not found")
@@ -180,9 +194,18 @@ app.post('/api/users/:user/paymentdatas', function(req, res, next) {
 
     user = req.params.user;
 
+<<<<<<< HEAD
     schema.User.findOneAndUpdate({ id: user }, { $push: { paymentDatas: paymentData } }, { new: true, useFindAndModify: false },
         function(err, doc) {
             if (err)
+=======
+    schema.User.findOneAndUpdate(
+        { id : user },
+        { $push : { paymentDatas : paymentData } },
+        { new : true, useFindAndModify : false },
+        function(err,doc){
+            if(err)
+>>>>>>> b03d4cd61092fdcc7e8cf9aa17dd16b95bdf3b62
                 return next(err);
             if (doc == null)
                 return res.status(404).json("User not found")
@@ -193,6 +216,7 @@ app.post('/api/users/:user/paymentdatas', function(req, res, next) {
 
 //DELETE METHODS
 
+<<<<<<< HEAD
 app.delete('/api/sellers/:id', function(req, res, next) {
     var id = req.params.id;
     Seller.findOneAndDelete({ _id: id }, function(err, seller) {
@@ -313,6 +337,104 @@ app.put('/api/products/:product/reviews/:review', function(req, res) {
 
 app.put('/api/users/:user/paymentdatas/:paymentdata', function(req, res) {
 
+=======
+app.delete('/api/sellers/:seller', function(req, res) {
+    var id = req.params.id;
+    var seller = sellers[id];
+    delete sellers[id];
+    res.json(seller);
+});
+
+app.delete('/api/users/:user', function(req, res) {
+    var id = req.params.id;
+    var user = users[id];
+    delete users[id];
+    res.json(user);
+});
+
+app.delete('/api/categories/:category', function(req, res) {
+    var id = req.params.id;
+    var category = categories[id];
+    delete categories[id];
+    res.json(category);
+});
+
+app.delete('/api/products/:product', function(req, res) {
+    var id = req.params.id;
+    var product = products[id];
+    delete products[id];
+    res.json(product);
+});
+
+app.delete('/api/products/:product/reviews/:review', function(req, res) {
+    var id = req.params.id;
+    var review = reviews[id];
+    delete reviews[id];
+    res.json(review);
+});
+
+app.delete('/api/users/:user/paymentdatas/:paymentdata', function(req, res) {
+    var id = req.params.id;
+    var paymentdata = paymentdatas[id];
+    delete paymentdatas[id];
+    res.json(paymentdata);
+});
+
+//EDIT METHODS (OVERWRITE)
+
+app.put('/api/sellers/:seller', function(req, res) {
+    var id = req.params.id;
+    var updated_seller = {
+      "_id": id
+    }
+    sellers[id] = updated_seller;
+    res.json(updated_seller);
+});
+
+app.put('/api/users/:user', function(req, res) {
+    var id = req.params.id;
+    var updated_user = {
+      "_id": id
+    }
+    users[id] = updated_user;
+    res.json(updated_user);
+});
+
+app.put('/api/categories/:category', function(req, res) {
+    var id = req.params.id;
+    var updated_category = {
+      "_id": id
+    }
+    categories[id] = updated_category;
+    res.json(updated_category);
+});
+
+app.put('/api/products/:product', function(req, res) {
+    var id = req.params.id;
+    var updated_product = {
+      "_id": id
+    }
+    products[id] = updated_product;
+    res.json(updated_product);
+});
+
+app.put('/api/products/:product/reviews/:review', function(req, res) {
+    var id = req.params.id;
+    var updated_review = {
+      "_id": id
+    }
+    review[id] = updated_review;
+    res.json(updated_review);
+});
+
+app.put('/api/users/:user/paymentdatas/:paymentdata', function(req, res) {
+    var id = req.params.id;
+    var updated_paymentdata = {
+      "_id": id
+    }
+    paymentdata[id] = updated_paymentdata;
+    res.json(updated_paymentdata);
+>>>>>>> b03d4cd61092fdcc7e8cf9aa17dd16b95bdf3b62
 });
 
 //EDIT METHODS
@@ -379,6 +501,7 @@ app.patch('/api/products/:product/reviews/:review', function(req, res) {
 });
 
 app.patch('/api/users/:user/paymentdatas/:paymentdata', function(req, res) {
+<<<<<<< HEAD
 
 });
 
@@ -399,3 +522,8 @@ app.use(function(err, req, res, next) {
 app.listen(3001, function() {
     console.log('App is listening on port 3000');
 });
+=======
+    res.send(req.params.id);
+    console.log('Received connection');
+});
+>>>>>>> b03d4cd61092fdcc7e8cf9aa17dd16b95bdf3b62
