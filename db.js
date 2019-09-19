@@ -26,44 +26,44 @@ const Schema = mongoose.Schema;
 */
 
 var sellerSchema = new Schema({
-    id : { type : String , required : true },
-    name : { type : String , required : true }
+    id: { type: String, required: true },
+    name: { type: String, required: true }
 });
 
 var userSchema = new Schema({
-    id : { type : String , required : true },
-    firstName : { type : String , required : true },
-    lastName : { type : String , required : true },
-    email : { type : String , required : true },
-    password : { type : String , required : true },
-    paymentDatas : { type : [paymentDataSchema] }
+    id: { type: String, required: true },
+    firstName: { type: String, required: true },
+    lastName: { type: String, required: true },
+    email: { type: String, required: true },
+    password: { type: String, required: true },
+    paymentDatas: { type: [paymentDataSchema] }
 })
 
 var categorySchema = new Schema({
-    name: { type : String , required : true}
+    name: { type: String, required: true }
 })
 
 var productSchema = new Schema({
-    id : { type : String , required : true },
-    name : { type : String , required : true },
-    description : { type : String , required : true },
-    price : { type : Number , required : true },
-    category : { type : String , required : true }, //Category is required for a product to exist!!! Design decision, can be changed
-    reviews : { type : [reviewSchema] }
+    id: { type: String, required: true },
+    name: { type: String, required: true },
+    description: { type: String, required: true },
+    price: { type: Number, required: true },
+    category: { type: Category, required: true }, //Category is required for a product to exist!!! Design decision, can be changed
+    reviews: { type: [reviewSchema] }
 })
 
 var reviewSchema = new Schema({
-    text: { type : String , required : true },
-    rating: { type : Number , required : true },
-    date: { type : Date }
+    text: { type: String, required: true },
+    rating: { type: Number, required: true },
+    date: { type: Date }
 })
 
 var paymentDataSchema = new Schema({
-    nameOnCard: { type : String , required : true },
-    cardNumber: { type : Number , required : true },
-    cvv: { type : Number , required : true },
-    month: { type : Number , required : true },
-    year: { type : Number , required : true }
+    nameOnCard: { type: String, required: true },
+    cardNumber: { type: Number, required: true },
+    cvv: { type: Number, required: true },
+    month: { type: Number, required: true },
+    year: { type: Number, required: true }
 })
 
 var Seller = mongoose.model('sellers', sellerSchema);
