@@ -3,28 +3,15 @@ var router = express.Router();
 var Product = require('../models/product');
 
 //Return a list of all the products
-router.get('/api/products', function(req, res, next) {
+router.get('/', function(req, res, next) {
     schema.Product.find(function(err, products) {
         if (err) return next(err);
         res.json({ "products": products });
     });
 });
 
-//Return the product with the given id
-router.get('/api/products/:product', function(req, res, next) {
-    var id = req.params.id;
-    Product.findById(req.params.id, function(err, product) {
-        if (err) { return next(err); }
-        if (product == null) {
-            return res.status(404).json({ "message": "Product not found" });
-        }
-        res.json(product);
-    });
-
-});
-
 //Create a new product
-router.post('/api/products', function(req, res, next) {
+router.post('/', function(req, res, next) {
     var product = new schema.Product(req.body)
 
     product.save(function(err) {
@@ -36,8 +23,21 @@ router.post('/api/products', function(req, res, next) {
     })
 });
 
+//Return the product with the given id
+router.get('/:id', function(req, res, next) {
+    var id = req.params.id;
+    Product.findById(req.params.id, function(err, product) {
+        if (err) { return next(err); }
+        if (product == null) {
+            return res.status(404).json({ "message": "Product not found" });
+        }
+        res.json(product);
+    });
+
+});
+
 //Delete the product with the given id
-router.delete('/api/products/:id', function(req, res, next) {
+router.delete('/:id', function(req, res, next) {
     var id = req.params.id;
     Product.findOneAndDelete({ _id: id }, function(err, product) {
         if (err) { return next(err); }
@@ -49,7 +49,7 @@ router.delete('/api/products/:id', function(req, res, next) {
 });
 
 
-router.put('/api/products/:id', function(req, res, next) {
+router.put('/:id', function(req, res, next) {
     var id = req.params.id;
     Product.findById(id, function(err, product) {
         if (err) { return next(err); }
@@ -66,7 +66,7 @@ router.put('/api/products/:id', function(req, res, next) {
     });
 });
 
-router.patch('/api/products/:id', function(req, res, next) {
+router.patch('/:id', function(req, res, next) {
     var id = req.params.id;
     Product.findById(id, function(err, product) {
         if (err) { return next(err); }

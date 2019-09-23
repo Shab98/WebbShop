@@ -2,25 +2,14 @@ var express = require('express');
 var router = express.Router();
 var USer = require('../models/user');
 
-router.get('/api/users', function(req, res, next) {
+router.get('/', function(req, res, next) {
     schema.User.find(function(err, users) {
         if (err) return next(err);
         res.json({ "users": users });
     });
 });
 
-router.get('/api/users/:id', function(req, res, next) {
-    var id = req.params.id;
-    User.findById(req.params.id, function(err, user) {
-        if (err) { return next(err); }
-        if (user == null) {
-            return res.status(404).json({ "message": "User not found" });
-        }
-        res.json(user);
-    });
-});
-
-router.post('/api/users', function(req, res, next) {
+router.post('/', function(req, res, next) {
     var user = new schema.User(req.body)
     user.save(function(err) {
         if (err)
@@ -31,7 +20,18 @@ router.post('/api/users', function(req, res, next) {
     });
 });
 
-router.delete('/api/users/:id', function(req, res, next) {
+router.get('/:id', function(req, res, next) {
+    var id = req.params.id;
+    User.findById(req.params.id, function(err, user) {
+        if (err) { return next(err); }
+        if (user == null) {
+            return res.status(404).json({ "message": "User not found" });
+        }
+        res.json(user);
+    });
+});
+
+router.delete('/:id', function(req, res, next) {
     var id = req.params.id;
     User.findOneAndDelete({ _id: id }, function(err, user) {
         if (err) { return next(err); }
@@ -42,7 +42,7 @@ router.delete('/api/users/:id', function(req, res, next) {
     });
 });
 
-router.put('/api/users/:id', function(req, res, next) {
+router.put('/:id', function(req, res, next) {
     var id = req.params.id;
     User.findById(id, function(err, user) {
         if (err) { return next(err); }
@@ -59,7 +59,7 @@ router.put('/api/users/:id', function(req, res, next) {
     });
 });
 
-router.patch('/api/users/:id', function(req, res, next) {
+router.patch('/:id', function(req, res, next) {
     var id = req.params.id;
     User.findById(id, function(err, user) {
         if (err) { return next(err); }

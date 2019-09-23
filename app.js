@@ -53,7 +53,12 @@ app.use(bodyParser.json());
 app.get('/api', function(req, res) {
     res.json({'message': 'Welcome to G7\'s backend ExpressJS project!'});
 });
-app.use('/api/camels', camelsController);
+app.use('/api/products', productsController);
+app.use('/api/categories', categoriesController);
+app.use('/api/sellers', sellersController);
+app.use('/api/users', usersController);
+app.use('/api/paymentdatas', paymentdatasController);
+app.use('/api/reviews', reviewsController);
 
 // Catch all non-error handler for api (i.e., 404 Not Found)
 app.use('/api/*', function (req, res) {
