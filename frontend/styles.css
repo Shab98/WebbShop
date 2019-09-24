@@ -1,0 +1,16 @@
+
+#footer {
+	 position: fixed;
+   left: 0;
+   bottom: 0;
+   width: 100%;
+   background-color: darkGrey;
+   color: white;
+   text-align: center;
+}
+
+#mainHeader {
+	font-size: 24px;
+	color: black;
+	text-align: center;
+}
