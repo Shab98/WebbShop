@@ -1,18 +1,31 @@
 var express = require('express');
 var router = express.Router();
+var Product = require('../models/product');
 var Review = require('../models/review');
 
-router.get('/:product/reviews', function(req, res) {
+//Return a list of all the reviews of a specific product
+router.get('/', function(req, res, next) {
+    let productId = req.productId;
 
+    product.findById(productId, function(err, product) {
+        if (err) { return next(err); }
+        if (product == null) {
+            return res.status(404).json({ "message": "Product not found" });
+        }
+        if (product.reviews == null) {
+            return res.status(404).json({ "message": "Reviews not found" });
+        }
+        res.json(product.reviews);
+    });
 });
 
-router.post('/:product/reviews', function(req, res, next) {
-    var review = new schema.Review(req.body);
+//Create a new review for a specific product
+router.post('/', function(req, res, next) {
+    let productId = req.productId;
+    var review = new Review(req.body);
 
-    productId = req.params.product;
-
-    schema.Product.findOneAndUpdate(
-        { id : productId },
+    Product.findOneAndUpdate(
+        { _id : productId },
         { $push : { reviews : review } },
         { new : true, useFindAndModify : false },
         function(err,doc){
@@ -25,20 +38,46 @@ router.post('/:product/reviews', function(req, res, next) {
     );
 });
 
-router.get('/:product/reviews/:id', function(req, res) {
+//Return the review with the given id for a specific product
+router.get('/:id', function(req, res, next) {
+    let productId = req.productId;
+    let id = req.params.id;
+    
+    Product.findById(productId, function(err, product) {
+        if (err) { return next(err); }
+        if (product == null) {
+            return res.status(404).json({ "message": "Product not found" });
+        }
 
+        //Manually searching in the array of reviews for the interested one
+        let position = -1;
+        for (let i = 0; i < product.reviews.length; i++) {
+            if (product.reviews[i]._id == id) {
+                position = i;
+            }
+        }
+        if (position < 0){
+            return res.status(404).json({ "message": "Review not found" });
+        }
+        res.json(product.reviews[position]);
+    });
 });
 
-router.delete('/:product/reviews/:id', function(req, res) {
+//Delete the review with the given id for a specific product
+router.delete('/:id', function(req, res, next) {
+    let productId = req.productId;
+    let id = req.params.id;
 
+    product.findByIdAndUpdate(productId, 
+        { '$pull': { 'reviews':{ '_id': id } }},{useFindAndModify : true}, function(err, product) {
+        if (err) { return next(err); }
+        if (product == null) {
+            return res.status(404).json({ "message": "Product not found" });
+        }
+        console.log(product);
+        res.json(product);
+    });
 });
 
-router.put('/:product/reviews/:id', function(req, res) {
-
-});
-
-router.patch('/:product/reviews/:id', function(req, res) {
-
-});
 
 module.exports = router;

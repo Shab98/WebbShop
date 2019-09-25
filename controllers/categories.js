@@ -2,26 +2,28 @@ var express = require('express');
 var router = express.Router();
 var Category = require('../models/category');
 
+//Return a list of all the categories
 router.get('/', function(req, res, next) {
-    schema.Category.find(function(err, categories) {
+    Category.find(function(err, categories) {
         if (err) return next(err);
         res.json({ "categories": categories });
     });
 });
 
+//Create a new category
 router.post('/', function(req, res, next) {
-    var category = new schema.Category(req.body)
+    var category = new Category(req.body)
     category.save(function(err) {
         if (err)
             return next(err);
         else
             res.status(201).json(category);
         console.log("DB: A Category has been added");
-    })
+    });
 });
 
+//Return the category with the given id
 router.get('/:id', function(req, res, next) {
-    var id = req.params.id;
     Category.findById(req.params.id, function(err, category) {
         if (err) { return next(err); }
         if (category == null) {
@@ -29,12 +31,11 @@ router.get('/:id', function(req, res, next) {
         }
         res.json(category);
     });
-
 });
 
+//Delete the category with the given id
 router.delete('/:id', function(req, res, next) {
-    var id = req.params.id;
-    Category.findOneAndDelete({ _name: name }, function(err, category) {
+    Category.findOneAndDelete({ _id: req.params.id }, function(err, category) {
         if (err) { return next(err); }
         if (category == null) {
             return res.status(404).json({ "message": "Category not found" });
@@ -43,27 +44,41 @@ router.delete('/:id', function(req, res, next) {
     });
 });
 
+//Update the category with the given id
 router.put('/:id', function(req, res, next) {
-    var name = req.params.name;
-    Category.findById(name, function(err, category) {
+    Category.findById(req.params.id, function(err, category) {
         if (err) { return next(err); }
         if (category == null) {
             return res.status(404).json({ "message": "Category not found" });
         }
         category.name = req.body.name;
-        category.save();
-        res.json(category);
+        category.save(function(err) {
+            if (err) {
+                console.log(err);
+                res.status(400).send('Bad Request');
+            }else{
+                res.json(category);
+            }
+        });
     });
 });
 
+//Partially update the user with the given id
 router.patch('/:id', function(req, res) {
-    var id = req.params.id;
-    Category.findById(id, function(err, category) {
+    Category.findById(req.params.id, function(err, category) {
         if (err) { return next(err); }
         if (category == null) {
             return res.status(404).json({ "message": "Category not found" });
         }
         category.name = (req.body.name || category.name);
+        category.save(function(err) {
+            if (err) {
+                console.log(err);
+                res.status(400).send('Bad Request');
+            }else{
+                res.json(category);
+            }
+        });
     });
 });
 

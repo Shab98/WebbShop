@@ -2,9 +2,13 @@ var express = require('express');
 var router = express.Router();
 var Product = require('../models/product');
 
+var reviewsController = require('./reviews');
+
 //Return a list of all the products
 router.get('/', function(req, res, next) {
-    schema.Product.find(function(err, products) {
+    var sorting = req.query.sort;
+    
+    Product.find(function(err, products) {
         if (err) return next(err);
         res.json({ "products": products });
     });
@@ -12,8 +16,7 @@ router.get('/', function(req, res, next) {
 
 //Create a new product
 router.post('/', function(req, res, next) {
-    var product = new schema.Product(req.body)
-
+    var product = new Product(req.body)
     product.save(function(err) {
         if (err)
             return next(err);
@@ -25,7 +28,6 @@ router.post('/', function(req, res, next) {
 
 //Return the product with the given id
 router.get('/:id', function(req, res, next) {
-    var id = req.params.id;
     Product.findById(req.params.id, function(err, product) {
         if (err) { return next(err); }
         if (product == null) {
@@ -33,7 +35,6 @@ router.get('/:id', function(req, res, next) {
         }
         res.json(product);
     });
-
 });
 
 //Delete the product with the given id
@@ -48,10 +49,9 @@ router.delete('/:id', function(req, res, next) {
     });
 });
 
-
+//Update the product with the given id
 router.put('/:id', function(req, res, next) {
-    var id = req.params.id;
-    Product.findById(id, function(err, product) {
+    Product.findById(req.params.id, function(err, product) {
         if (err) { return next(err); }
         if (product == null) {
             return res.status(404).json({ "message": "Product not found" });
@@ -61,11 +61,18 @@ router.put('/:id', function(req, res, next) {
         product.price = req.body.price;
         product.category = req.body.category;
         product.reviews = req.body.reviews;
-        product.save();
-        res.json(product);
+        product.save(function(err) {
+            if (err) {
+                console.log(err);
+                res.status(400).send('Bad Request');
+            }else{
+                res.json(product);
+            }
+        });
     });
 });
 
+//Partially update the product with the given id
 router.patch('/:id', function(req, res, next) {
     var id = req.params.id;
     Product.findById(id, function(err, product) {
@@ -77,9 +84,21 @@ router.patch('/:id', function(req, res, next) {
         product.description = (req.body.description || product.description);
         product.price = (req.body.price || product.price);
         product.category = (req.body.category || product.category);
-        product.save();
-        res.json(product);
+        product.save(function(err) {
+            if (err) {
+                console.log(err);
+                res.status(400).send('Bad Request');
+            }else{
+                res.json(product);
+            }
+        });
     });
 });
+
+//Implement nested requests
+router.use('/:id/reviews', function(req, res, next) {
+    req.productId = req.params.id;
+    next();
+}, reviewsController);
 
 module.exports = router;

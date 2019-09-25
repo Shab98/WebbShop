@@ -1,12 +1,11 @@
-const express = require('express');
-const mongoose = require('mongoose');
+var express = require('express');
+var bodyParser = require('body-parser');
+var mongoose = require('mongoose');
 
 var productsController = require('./controllers/products');
 var categoriesController = require('./controllers/categories');
 var sellersController = require('./controllers/sellers');
 var usersController = require('./controllers/users');
-var paymentdatasController = require('./controllers/paymentdatas');
-var reviewsController = require('./controllers/reviews');
 
 // Variables
 const dbAddress = "localhost";
@@ -57,8 +56,6 @@ app.use('/api/products', productsController);
 app.use('/api/categories', categoriesController);
 app.use('/api/sellers', sellersController);
 app.use('/api/users', usersController);
-app.use('/api/paymentdatas', paymentdatasController);
-app.use('/api/reviews', reviewsController);
 
 // Catch all non-error handler for api (i.e., 404 Not Found)
 app.use('/api/*', function (req, res) {
@@ -67,6 +64,8 @@ app.use('/api/*', function (req, res) {
 
 
 //Error handling
+var env = app.get('env');
+
 app.use(function(err, req, res, next) {
     console.error(err.stack);
     var err_res = {
