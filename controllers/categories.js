@@ -6,7 +6,7 @@ var Category = require('../models/category');
 router.get('/', function(req, res, next) {
     Category.find(function(err, categories) {
         if (err) return next(err);
-        res.json({ "categories": categories });
+        res.json(categories);
     });
 });
 
@@ -40,7 +40,7 @@ router.delete('/:id', function(req, res, next) {
         if (category == null) {
             return res.status(404).json({ "message": "Category not found" });
         }
-        res.json(category);
+        res.status(200).json(category);
     });
 });
 

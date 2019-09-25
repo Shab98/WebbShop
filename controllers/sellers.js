@@ -6,7 +6,7 @@ var Seller = require('../models/seller');
 router.get('/', function(req, res, next) {
     Seller.find(function(err, sellers) {
         if (err) return next(err);
-        res.json({ "sellers": sellers });
+        res.json( sellers );
     });
 });
 

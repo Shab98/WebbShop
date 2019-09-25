@@ -8,7 +8,7 @@ var paymentdatasController = require('./paymentdatas');
 router.get('/', function(req, res, next) {
     User.find(function(err, users) {
         if (err) return next(err);
-        res.json({ "users": users });
+        res.json( users );
     });
 });
 

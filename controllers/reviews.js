@@ -2,12 +2,13 @@ var express = require('express');
 var router = express.Router();
 var Product = require('../models/product');
 var Review = require('../models/review');
+var getReviewPosition = require('../common/functions');
 
 //Return a list of all the reviews of a specific product
 router.get('/', function(req, res, next) {
     let productId = req.productId;
 
-    product.findById(productId, function(err, product) {
+    Product.findById(productId, function(err, product) {
         if (err) { return next(err); }
         if (product == null) {
             return res.status(404).json({ "message": "Product not found" });
@@ -33,7 +34,7 @@ router.post('/', function(req, res, next) {
                 return next(err);
             if (doc == null)
                 return res.status(404).json("Product not found")
-            res.status(201).json(doc);
+            res.status(201).json(review);
         }
     );
 });
@@ -50,12 +51,8 @@ router.get('/:id', function(req, res, next) {
         }
 
         //Manually searching in the array of reviews for the interested one
-        let position = -1;
-        for (let i = 0; i < product.reviews.length; i++) {
-            if (product.reviews[i]._id == id) {
-                position = i;
-            }
-        }
+        let position = getReviewPosition(product.reviews, id);
+        
         if (position < 0){
             return res.status(404).json({ "message": "Review not found" });
         }
@@ -67,17 +64,28 @@ router.get('/:id', function(req, res, next) {
 router.delete('/:id', function(req, res, next) {
     let productId = req.productId;
     let id = req.params.id;
-
-    product.findByIdAndUpdate(productId, 
-        { '$pull': { 'reviews':{ '_id': id } }},{useFindAndModify : true}, function(err, product) {
+    Product.findById(productId, function(err, product) {
         if (err) { return next(err); }
         if (product == null) {
             return res.status(404).json({ "message": "Product not found" });
         }
-        console.log(product);
-        res.json(product);
+        let position = getReviewPosition(product.reviews, id);
+        if (position < 0) {
+            return res.status(404).json({ "message": "Review not found" });
+        }
+        removed = product.reviews.splice(position);
+        
+        product.save(function(err) {
+            if (err) {
+                console.log(err);
+                res.status(400).send('Bad Request');
+            }else{
+                res.json(removed[0]);
+            }
+        });
     });
 });
+
 
 
 module.exports = router;
