@@ -5,78 +5,95 @@
 <meta name="keywords" content="webstore, Vue.js" />
 <meta name="description" content="Webstore selling anything you like" />
 <link rel="stylesheet" href="styles.css">
-
-		<!-- TODO Vue.js link -->
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 
 </head>
 <body>
 
-		<!-- TODO Header -->
-	<div id="mainHeader">
-			Magpie's Nest
+	<div id="grid_container">
+
+			<!-- TODO Header -->
+		<div id="main_header">
+				<img src="images/magpie_nest.png" alt="magpie on a branch" id="logo">
+				<h1 id="title">Magpie's Nest</h1>
+		</div>
+
+
+		<div id="menu">
+			Menu options
+		</div>
+
+			<!-- TODO left side content -->
+		<div id="left">
+			Left side content
+		</div>
+
+			<!-- TODO Main content -->
+		<div id="main">
+			Main content
+		</div>
+
+			<!-- TODO Right side content -->
+		<div id="right">
+			Right side content
+		</div>
+
+
+			<!-- TODO Footer -->
+		<div id="footer">
+				<div>
+
+							<div id="aboutUs">
+									<h3>
+										{{header}}
+									</h3>
+
+									<ul style="list-style-type:none;">
+								 		<li v-for="info in infos">
+										 {{info}}
+								 		</li>
+						 			</ul>
+				 			</div>
+
+							<script>
+			            var app = new Vue({
+			                el: '#aboutUs',
+			                data: {
+													header: "About Us",
+			                    infos: ["Company info", "News", "Policies"]
+			                }
+			            });
+	      			</script>
+				</div>
+				<div>
+
+							<div id="customerCare">
+									<h3>
+										{{header}}
+									</h3>
+
+						 			<ul style="list-style-type:none;">
+								 		<li v-for="customer in customers">
+										 {{ customer }}
+								 		</li>
+						 			</ul>
+				 			</div>
+
+							<script>
+			            var app = new Vue({
+			                el: '#customerCare',
+			                data: {
+													header: "Customer Care",
+			                    customers: ["Contact Us", "Seller information", "Returns", "Help"]
+			                }
+			            });
+	      			</script>
+
+				</div>
+
 	</div>
-
-
-		<!-- TODO Main Content -->
-	<div>
-	</div>
-
-
-		<!-- TODO Footer -->
-	<div>
-			<div>
-
-						<div id="aboutUs">
-								<h3>
-									{{header}}
-								</h3>
-
-								<ul style="list-style-type:none;">
-							 		<li v-for="info in infos">
-									 {{info}}
-							 		</li>
-					 			</ul>
-			 			</div>
-
-						<script>
-		            var app = new Vue({
-		                el: '#aboutUs',
-		                data: {
-												header: "About Us",
-		                    infos: ["Company info", "News", "Policies"]
-		                }
-		            });
-      			</script>
-			</div>
-			<div>
-
-						<div id="customerCare">
-								<h3>
-									{{header}}
-								</h3>
-
-					 			<ul style="list-style-type:none;">
-							 		<li v-for="customer in customers">
-									 {{ customer }}
-							 		</li>
-					 			</ul>
-			 			</div>
-
-						<script>
-		            var app = new Vue({
-		                el: '#customerCare',
-		                data: {
-												header: "Customer Care",
-		                    customers: ["Contact Us", "Seller information", "Returns", "Help"]
-		                }
-		            });
-      			</script>
-
-			</div>
-
 </div>
-<footer id="footer">Copyright © 2020 Magpie's Nest Inc. All rights reserved</footer>
+<footer id="footer_line">Copyright © 2019 Magpie's Nest Inc. All rights reserved</footer>
 
 
 </body>
