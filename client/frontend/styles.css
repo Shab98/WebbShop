@@ -1,0 +1,130 @@
+body {
+    margin: 0;
+}
+
+#page {
+    display: grid;
+    grid-gap: 0.5rem;
+    width: 100%;
+    height: 1200px;
+    grid-template-areas: "head head" "nav main" "nav bd" "nav contact" "nav foot";
+    grid-template-rows: 100px 1fr 300px 1fr 350px;
+    grid-template-columns: 130px 2fr;
+}
+
+
+/*.grid_container>div {
+    background-color: white;
+    text-align: center;
+    padding: 20px 0;
+}*/
+
+header {
+    grid-area: header;
+    font-size: 24px;
+    color: black;
+    text-align: center;
+    background-color: #bdb4a5;
+    margin: 0 0 0 0;
+}
+
+#page>header {
+    grid-area: head;
+    background-color: beige
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    width: 140px;
+}
+
+li a {
+    display: block;
+    color: rgb(255, 251, 4);
+    padding: 8px 16px;
+    text-decoration: none;
+}
+
+li {
+    display: block;
+    color: rgb(0, 0, 0);
+    padding: 3px 16px;
+    text-decoration: none;
+}
+
+
+/* Change the link color on hover*/
+
+li a:hover {
+    background-color: #555;
+    color: white;
+}
+
+.title {
+    position: relative;
+    font-family: fantasy;
+    bottom: 140px;
+    right: 230px;
+    display: inline;
+}
+
+.title2 {
+    font-size: 28px;
+    font-weight: 300;
+}
+
+
+/*.title2 {
+    position: absolute;
+    font-family: fantasy;
+    bottom: 100px;
+    right: 4em;
+    display: inline;
+}*/
+
+#page>nav {
+    grid-area: nav;
+    border-radius: 1rem;
+    background-color: black;
+}
+
+.logo {
+    width: 500px;
+}
+
+#page>main {
+    grid-area: main;
+    padding: 1rem;
+    border-radius: 1rem;
+    background-color: #bdb4a5;
+}
+
+.bd {
+    grid-area: bd;
+    border-radius: 1rem;
+    background-color: #bdb4a5;
+}
+
+.contact {
+    grid-area: contact;
+    border-radius: 1rem;
+    background-color: #bdb4a5;
+}
+
+#page>footer {
+    grid-area: foot;
+    border-radius: 1rem;
+    background-color: #bdb4a5;
+}
+
+.footer_line {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: black;
+    color: white;
+    text-align: center;
+}
