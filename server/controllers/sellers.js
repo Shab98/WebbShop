@@ -10,6 +10,15 @@ router.get('/', function(req, res, next) {
     });
 });
 
+//Delete all the sellers
+router.delete('/', function(req, res, next) {
+    var id = req.params.id;
+    Seller.remove({}, function(err,response) {
+        if (err) { return next(err); }
+        res.json(response);
+    });
+});
+
 //Create a new seller
 router.post('/', function(req, res, next) {
     var seller = new Seller(req.body);

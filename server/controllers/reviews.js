@@ -20,6 +20,19 @@ router.get('/', function(req, res, next) {
     });
 });
 
+//Delete all the reviews
+router.delete('/', function(req, res, next) {
+    let productId = req.productId;
+    Product.findOneAndUpdate(
+        { _id : productId },
+        { $set : { reviews : [] } },
+        function(err,doc){
+            if(err) { return next(err); }
+            res.status(201).json(doc.reviews);
+        }
+    );
+});
+
 //Create a new review for a specific product
 router.post('/', function(req, res, next) {
     let productId = req.productId;
