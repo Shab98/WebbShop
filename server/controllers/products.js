@@ -6,11 +6,36 @@ var reviewsController = require('./reviews');
 
 //Return a list of all the products
 router.get('/', function(req, res, next) {
-    var sorting = req.query.sort;
+    var sorting = req.query.sort_by;
+    var ordering = req.query.order_by;
+    var mySort = null;
+
+    if(sorting == "price") {
+        if (ordering == "asc") {
+            ordering = 1;
+        }else if (ordering == "desc") {
+            ordering = -1;
+        }else{
+            ordering = 1;
+        }
+
+        if (sorting == "price") {
+            mySort = { price : ordering };
+        }
+    }
     
     Product.find(function(err, products) {
         if (err) return next(err);
         res.json( products );
+    }).sort(mySort);
+});
+
+//Delete all the products
+router.delete('/', function(req, res, next) {
+    var id = req.params.id;
+    Product.remove({}, function(err,response) {
+        if (err) { return next(err); }
+        res.json(response);
     });
 });
 

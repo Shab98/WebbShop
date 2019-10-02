@@ -20,6 +20,19 @@ router.get('/', function(req, res, next) {
     });
 });
 
+//Delete all the paymentdatas
+router.delete('/', function(req, res, next) {
+    let userId = req.userId;
+    User.findOneAndUpdate(
+        { _id : userId },
+        { $set : { paymentDatas : [] } },
+        function(err,doc){
+            if(err) { return next(err); }
+            res.status(201).json(doc.paymentDatas);
+        }
+    );
+});
+
 //Create a new paymentdata for a specific user
 router.post('/', function(req, res, next) {
     let userId = req.userId;

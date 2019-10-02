@@ -10,6 +10,15 @@ router.get('/', function(req, res, next) {
     });
 });
 
+//Delete all the categories
+router.delete('/', function(req, res, next) {
+    var id = req.params.id;
+    Category.remove({}, function(err,response) {
+        if (err) { return next(err); }
+        res.json(response);
+    });
+});
+
 //Create a new category
 router.post('/', function(req, res, next) {
     var category = new Category(req.body)

@@ -12,6 +12,15 @@ router.get('/', function(req, res, next) {
     });
 });
 
+//Delete all the users
+router.delete('/', function(req, res, next) {
+    var id = req.params.id;
+    User.remove({}, function(err,response) {
+        if (err) { return next(err); }
+        res.json(response);
+    });
+});
+
 //Create a new user
 router.post('/', function(req, res, next) {
     var user = new User(req.body)
