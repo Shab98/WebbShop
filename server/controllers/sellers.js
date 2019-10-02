@@ -49,11 +49,12 @@ router.delete('/:id', function(req, res, next) {
 //Update the seller with the given id
 router.put('/:id', function(req, res, next) {
     var id = req.params.id;
-    User.findById(id, function(err, seller) {
+    Seller.findById(id, function(err, seller) {
         if (err) { return next(err); }
         if (seller == null) {
             return res.status(404).json({ "message": "Seller not found" });
         }
+        seller.id = req.body.id;
         seller.name = req.body.name;
         seller.save(function(err) {
             if (err) {
