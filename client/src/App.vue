@@ -2,7 +2,8 @@
   <div id="app">
     <div id="nav">
       <router-link to="/">Home</router-link> |
-      <router-link to="/products">Products</router-link>
+      <router-link to="/products">Products List</router-link> |
+      <router-link to="/product">Product</router-link>
     </div>
     <router-view/>
   </div>
@@ -10,11 +11,13 @@
 
 <style>
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
+  font-family: 'Cursive';
+  -webkit-font-smoothing: subpixel-antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+  background-color: beige;
+  padding: 50px;
 }
 #nav {
   padding: 30px;
@@ -26,6 +29,6 @@
 }
 
 #nav a.router-link-exact-active {
-  color: #42b983;
+  color: #5D6D7E;
 }
 </style>
