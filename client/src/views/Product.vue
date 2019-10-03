@@ -1,0 +1,60 @@
+<template>
+  <div class="product">
+    <h1>id = {{ id }}</h1>
+    <product-view :key="product._id" :product="product"></product-view>
+  </div>
+</template>
+
+<script>
+import { Api } from '@/Api'
+import ProductView from '@/components/ProductView'
+import router from '../router'
+
+export default {
+  name: 'Product',
+  data() {
+    return {
+      product: null
+    }
+  },
+  mounted() {
+    this.getProduct();
+  },
+  created() {
+    this.id = this.$route.params.id;
+  },
+  methods: {
+    getProduct() {
+      Api.get('/products/' + this.id )
+        .then(reponse => {
+          this.product = reponse.data.product
+        })
+        .catch(error => {
+          this.product = null;
+          console.log(error)
+        })
+        .then(() => {
+          // This code is always executed (after success or error).
+        })
+    }
+  },
+  components: {
+    ProductView
+  }
+}
+</script>
+
+<!-- Add "scoped" attribute to limit CSS to this component only -->
+<style scoped>
+a {
+  color: #42b983;
+}
+.createButton {
+  margin-bottom: 1em;
+}
+.products {
+  margin-left: 5%;
+  margin-right: 5%;
+  margin-bottom: 2em;
+}
+</style>

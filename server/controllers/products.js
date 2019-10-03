@@ -58,7 +58,7 @@ router.get('/:id', function(req, res, next) {
         if (product == null) {
             return res.status(404).json({ "message": "Product not found" });
         }
-        res.json(product);
+        res.json({ "product" : product });
     });
 });
 

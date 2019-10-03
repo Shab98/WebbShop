@@ -1,0 +1,1931 @@
+{
+	"info": {
+		"_postman_id": "4174d44d-e5ba-4f82-bb56-3204de2b2c78",
+		"name": "Testing webshop",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "POST a Seller",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2ba15477-00a7-414b-a857-09d455c7b0d9",
+						"exec": [
+							"var jsonData = pm.response.json();",
+							"var sellerId = jsonData._id;",
+							"pm.globals.set(\"seller_id\", sellerId);",
+							"var getSellerId = pm.variables.get(\"seller_id\");",
+							"",
+							"",
+							"pm.test(\"Status code is 201\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"",
+							"pm.test(\"Body is correctly formatted\", function () {",
+							"\tvar jsonData = pm.response.json();",
+							"\tpm.expect(jsonData.id).to.eql(\"1\");",
+							"\tpm.expect(jsonData.name).to.eql(\"Lucy Watson\");",
+							"});",
+							"",
+							"pm.test(\"Body has _id\", function () {",
+							"\tvar jsonData = pm.response.json();",
+							"    pm.expect(jsonData._id).to.be.a('String');",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"id\" : 1,\n\t\"name\" : \"Lucy Watson\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/sellers",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"sellers"
+					]
+				},
+				"description": "Post a Seller"
+			},
+			"response": []
+		},
+		{
+			"name": "POST a Category",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ecfceed5-daa1-4f74-9223-673634b2519c",
+						"exec": [
+							"var jsonData = pm.response.json();",
+							"var categoryId = jsonData._id;",
+							"pm.globals.set(\"category_id\", categoryId);",
+							"",
+							"pm.test(\"Status code is 201\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"",
+							"pm.test(\"Body is correctly formatted\", function () {",
+							"\tpm.expect(jsonData.name).to.eql(\"Food\");",
+							"});",
+							"",
+							"pm.test(\"Body has _id\", function () {",
+							"    pm.expect(jsonData._id).to.be.a('String');",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\" : \"Food\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/categories",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"categories"
+					]
+				},
+				"description": "Post a Category"
+			},
+			"response": []
+		},
+		{
+			"name": "POST a Review",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2ba15477-00a7-414b-a857-09d455c7b0d9",
+						"exec": [
+							"var jsonData = pm.response.json();",
+							"var reviewId = jsonData._id;",
+							"pm.globals.set(\"review_id\", reviewId);",
+							"",
+							"pm.test(\"Status code is 201\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"",
+							"pm.test(\"Body is correctly formatted\", function () {",
+							"\tpm.expect(jsonData.text).to.eql(\"The cookie tasted really good! Recommended.\");",
+							"    pm.expect(jsonData.rating).to.eql(5);",
+							"    pm.expect(jsonData.date).to.eql(new Date(\"2010-01-01\").toISOString());",
+							"});",
+							"",
+							"pm.test(\"Body has _id\", function () {",
+							"    pm.expect(jsonData._id).to.be.a('String');",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"text\" : \"The cookie tasted really good! Recommended.\",\n\t\"rating\" : 5,\n\t\"date\" : \"2010-01-01\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/products/{{product_id}}/reviews",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"products",
+						"{{product_id}}",
+						"reviews"
+					]
+				},
+				"description": "Post a Review"
+			},
+			"response": []
+		},
+		{
+			"name": "POST a Product",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2ba15477-00a7-414b-a857-09d455c7b0d9",
+						"exec": [
+							"var jsonData = pm.response.json();",
+							"var productId = jsonData._id;",
+							"pm.globals.set(\"product_id\", productId);",
+							"",
+							"",
+							"pm.test(\"Status code is 201\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"",
+							"pm.test(\"Body is correctly formatted\", function () {",
+							"\tvar jsonData = pm.response.json();",
+							"\tpm.expect(jsonData.name).to.eql(\"Cookie\");",
+							"    pm.expect(jsonData.description).to.eql(\"A delicious cookie\");",
+							"    pm.expect(jsonData.price).to.eql(1.20);",
+							"    pm.expect(jsonData.category.name).to.eql(\"Food\");",
+							"});",
+							"",
+							"pm.test(\"Body has _id\", function () {",
+							"\tvar jsonData = pm.response.json();",
+							"    pm.expect(jsonData._id).to.be.a('String');",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\" : \"Cookie\",\n\t\"description\" : \"A delicious cookie\",\n\t\"price\" : 1.20,\n\t\"category\" : {\n\t\t\"name\" : \"Food\"\n\t}\n}"
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/products",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"products"
+					]
+				},
+				"description": "Post a Product"
+			},
+			"response": []
+		},
+		{
+			"name": "POST a Paymentdata",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2ba15477-00a7-414b-a857-09d455c7b0d9",
+						"exec": [
+							"var jsonData = pm.response.json();",
+							"var paymentdataId = jsonData._id;",
+							"pm.globals.set(\"paymentdata_id\", paymentdataId);",
+							"",
+							"pm.test(\"Status code is 201\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"",
+							"pm.test(\"Body is correctly formatted\", function () {",
+							"\tpm.expect(jsonData.nameOnCard).to.eql(\"John\");",
+							"    pm.expect(jsonData.cardNumber).to.eql(1234567812345678);",
+							"    pm.expect(jsonData.month).to.eql(10);",
+							"    pm.expect(jsonData.year).to.eql(20);",
+							"});",
+							"",
+							"pm.test(\"Body has _id\", function () {",
+							"    pm.expect(jsonData._id).to.be.a('String');",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"nameOnCard\" : \"John\",\n\t\"cardNumber\" : 1234567812345678,\n\t\"cvv\" : 123,\n\t\"month\" : 10,\n\t\"year\" : 20\n}"
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/users/{{user_id}}/paymentdatas",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"users",
+						"{{user_id}}",
+						"paymentdatas"
+					]
+				},
+				"description": "Post a PaymentData"
+			},
+			"response": []
+		},
+		{
+			"name": "POST a User",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2ba15477-00a7-414b-a857-09d455c7b0d9",
+						"exec": [
+							"var jsonData = pm.response.json();",
+							"var userId = jsonData._id;",
+							"pm.globals.set(\"user_id\", userId);",
+							"",
+							"",
+							"pm.test(\"Status code is 201\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"",
+							"pm.test(\"Body is correctly formatted\", function () {",
+							"\tpm.expect(jsonData.id).to.eql(\"1\");",
+							"    pm.expect(jsonData.firstName).to.eql(\"John\");",
+							"    pm.expect(jsonData.lastName).to.eql(\"Doe\");",
+							"    pm.expect(jsonData.email).to.eql(\"jdoe@gmail.com\");",
+							"    pm.expect(jsonData.password).to.eql(\"password1\");",
+							"});",
+							"",
+							"pm.test(\"Body has _id\", function () {",
+							"    pm.expect(jsonData._id).to.be.a('String');",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"id\" : \"1\",\n\t\"firstName\" : \"John\",\n\t\"lastName\" : \"Doe\",\n\t\"email\" : \"jdoe@gmail.com\",\n\t\"password\" : \"password1\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/users",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"users"
+					]
+				},
+				"description": "Post a User"
+			},
+			"response": []
+		},
+		{
+			"name": "GET all Users",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2ba15477-00a7-414b-a857-09d455c7b0d9",
+						"exec": [
+							"var jsonData = pm.response.json().users;",
+							"let last = jsonData.length - 1;",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Body is correctly formatted\", function () {",
+							"\tpm.expect(jsonData[last].id).to.eql(\"1\");",
+							"    pm.expect(jsonData[last].firstName).to.eql(\"John\");",
+							"    pm.expect(jsonData[last].lastName).to.eql(\"Doe\");",
+							"    pm.expect(jsonData[last].email).to.eql(\"jdoe@gmail.com\");",
+							"    pm.expect(jsonData[last].password).to.eql(\"password1\");",
+							"});",
+							"",
+							"pm.test(\"Body has _id\", function () {",
+							"    pm.expect(jsonData[last]._id).to.be.a('String');",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/users",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"users"
+					]
+				},
+				"description": "Post a User"
+			},
+			"response": []
+		},
+		{
+			"name": "GET a User",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2ba15477-00a7-414b-a857-09d455c7b0d9",
+						"exec": [
+							"var jsonData = pm.response.json();",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Body is correctly formatted\", function () {",
+							"\tpm.expect(jsonData.id).to.eql(\"1\");",
+							"    pm.expect(jsonData.firstName).to.eql(\"John\");",
+							"    pm.expect(jsonData.lastName).to.eql(\"Doe\");",
+							"    pm.expect(jsonData.email).to.eql(\"jdoe@gmail.com\");",
+							"    pm.expect(jsonData.password).to.eql(\"password1\");",
+							"});",
+							"",
+							"pm.test(\"Body has _id\", function () {",
+							"    pm.expect(jsonData._id).to.be.a('String');",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/users/{{user_id}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"users",
+						"{{user_id}}"
+					]
+				},
+				"description": "Post a User"
+			},
+			"response": []
+		},
+		{
+			"name": "GET all Sellers",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2ba15477-00a7-414b-a857-09d455c7b0d9",
+						"exec": [
+							"var jsonData = pm.response.json().sellers;",
+							"let last = jsonData.length - 1;",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Body is correctly formatted\", function () {",
+							"\tpm.expect(jsonData[last].id).to.eql(\"1\");",
+							"\tpm.expect(jsonData[last].name).to.eql(\"Lucy Watson\");",
+							"});",
+							"",
+							"pm.test(\"Body has _id\", function () {",
+							"    pm.expect(jsonData[last]._id).to.be.a('String');",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/sellers",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"sellers"
+					]
+				},
+				"description": "Post a Seller"
+			},
+			"response": []
+		},
+		{
+			"name": "GET a Sellers",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2ba15477-00a7-414b-a857-09d455c7b0d9",
+						"exec": [
+							"var jsonData = pm.response.json();",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Body is correctly formatted\", function () {",
+							"\tpm.expect(jsonData.id).to.eql(\"1\");",
+							"\tpm.expect(jsonData.name).to.eql(\"Lucy Watson\");",
+							"});",
+							"",
+							"pm.test(\"Body has _id\", function () {",
+							"    pm.expect(jsonData._id).to.be.a('String');",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/sellers/{{seller_id}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"sellers",
+						"{{seller_id}}"
+					]
+				},
+				"description": "Post a Seller"
+			},
+			"response": []
+		},
+		{
+			"name": "GET all Reviews of a Product",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2ba15477-00a7-414b-a857-09d455c7b0d9",
+						"exec": [
+							"var jsonData = pm.response.json().reviews;",
+							"let last = jsonData.length - 1;",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Body is correctly formatted\", function () {",
+							"\tpm.expect(jsonData[last].text).to.eql(\"The cookie tasted really good! Recommended.\");",
+							"    pm.expect(jsonData[last].rating).to.eql(5);",
+							"    pm.expect(jsonData[last].date).to.eql(new Date(\"2010-01-01\").toISOString());",
+							"});",
+							"",
+							"pm.test(\"Body has _id\", function () {",
+							"    pm.expect(jsonData[last]._id).to.be.a('String');",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/products/{{product_id}}/reviews",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"products",
+						"{{product_id}}",
+						"reviews"
+					]
+				},
+				"description": "Post a Review"
+			},
+			"response": []
+		},
+		{
+			"name": "GET a Review of a Product",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2ba15477-00a7-414b-a857-09d455c7b0d9",
+						"exec": [
+							"var jsonData = pm.response.json();",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Body is correctly formatted\", function () {",
+							"\tpm.expect(jsonData.text).to.eql(\"The cookie tasted really good! Recommended.\");",
+							"    pm.expect(jsonData.rating).to.eql(5);",
+							"    pm.expect(jsonData.date).to.eql(new Date(\"2010-01-01\").toISOString());",
+							"});",
+							"",
+							"pm.test(\"Body has _id\", function () {",
+							"    pm.expect(jsonData._id).to.be.a('String');",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/products/{{product_id}}/reviews/{{review_id}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"products",
+						"{{product_id}}",
+						"reviews",
+						"{{review_id}}"
+					]
+				},
+				"description": "Post a Review"
+			},
+			"response": []
+		},
+		{
+			"name": "GET all Products",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2ba15477-00a7-414b-a857-09d455c7b0d9",
+						"exec": [
+							"var jsonData = pm.response.json().products;",
+							"let last = jsonData.length - 1;",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Body is correctly formatted\", function () {",
+							"\tpm.expect(jsonData[last].name).to.eql(\"Cookie\");",
+							"    pm.expect(jsonData[last].description).to.eql(\"A delicious cookie\");",
+							"    pm.expect(jsonData[last].price).to.eql(1.20);",
+							"    pm.expect(jsonData[last].category.name).to.eql(\"Food\");",
+							"});",
+							"",
+							"pm.test(\"Body has _id\", function () {",
+							"    pm.expect(jsonData[last]._id).to.be.a('String');",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/products?sort=price&order=asc",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"products"
+					],
+					"query": [
+						{
+							"key": "sort",
+							"value": "price"
+						},
+						{
+							"key": "order",
+							"value": "asc"
+						}
+					]
+				},
+				"description": "Post a Product"
+			},
+			"response": []
+		},
+		{
+			"name": "GET a Products",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2ba15477-00a7-414b-a857-09d455c7b0d9",
+						"exec": [
+							"var jsonData = pm.response.json();",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Body is correctly formatted\", function () {",
+							"\tpm.expect(jsonData.name).to.eql(\"Cookie\");",
+							"    pm.expect(jsonData.description).to.eql(\"A delicious cookie\");",
+							"    pm.expect(jsonData.price).to.eql(1.20);",
+							"    pm.expect(jsonData.category.name).to.eql(\"Food\");",
+							"});",
+							"",
+							"pm.test(\"Body has _id\", function () {",
+							"    pm.expect(jsonData._id).to.be.a('String');",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/products/{{product_id}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"products",
+						"{{product_id}}"
+					]
+				},
+				"description": "Post a Product"
+			},
+			"response": []
+		},
+		{
+			"name": "GET all Paymentdatas of a User",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2ba15477-00a7-414b-a857-09d455c7b0d9",
+						"exec": [
+							"var jsonData = pm.response.json().paymentDatas;",
+							"var last = jsonData.length - 1;",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Body is correctly formatted\", function () {",
+							"\tpm.expect(jsonData[last].nameOnCard).to.eql(\"John\");",
+							"    pm.expect(jsonData[last].cardNumber).to.eql(1234567812345678);",
+							"    pm.expect(jsonData[last].month).to.eql(10);",
+							"    pm.expect(jsonData[last].year).to.eql(20);",
+							"});",
+							"",
+							"pm.test(\"Body has _id\", function () {",
+							"    pm.expect(jsonData[last]._id).to.be.a('String');",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/users/{{user_id}}/paymentdatas",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"users",
+						"{{user_id}}",
+						"paymentdatas"
+					]
+				},
+				"description": "Post a PaymentData"
+			},
+			"response": []
+		},
+		{
+			"name": "GET a Paymentdata of a User",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2ba15477-00a7-414b-a857-09d455c7b0d9",
+						"exec": [
+							"var jsonData = pm.response.json();",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Body is correctly formatted\", function () {",
+							"\tpm.expect(jsonData.nameOnCard).to.eql(\"John\");",
+							"    pm.expect(jsonData.cardNumber).to.eql(1234567812345678);",
+							"    pm.expect(jsonData.month).to.eql(10);",
+							"    pm.expect(jsonData.year).to.eql(20);",
+							"});",
+							"",
+							"pm.test(\"Body has _id\", function () {",
+							"    pm.expect(jsonData._id).to.be.a('String');",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/users/{{user_id}}/paymentdatas/{{paymentdata_id}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"users",
+						"{{user_id}}",
+						"paymentdatas",
+						"{{paymentdata_id}}"
+					]
+				},
+				"description": "Post a PaymentData"
+			},
+			"response": []
+		},
+		{
+			"name": "GET all Categories",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "cedc71d0-3272-4e8c-aa94-5ee1766a3271",
+						"exec": [
+							"var jsonData = pm.response.json().categories;",
+							"let last = jsonData.length - 1;",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Body is correctly formatted\", function () {",
+							"\tpm.expect(jsonData[last].name).to.eql(\"Food\");",
+							"});",
+							"",
+							"pm.test(\"Body has _id\", function () {",
+							"    pm.expect(jsonData[last]._id).to.be.a('String');",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/categories",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"categories"
+					]
+				},
+				"description": "Post a Category"
+			},
+			"response": []
+		},
+		{
+			"name": "GET  a Category",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "cedc71d0-3272-4e8c-aa94-5ee1766a3271",
+						"exec": [
+							"var jsonData = pm.response.json();",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Body is correctly formatted\", function () {",
+							"\tpm.expect(jsonData.name).to.eql(\"Food\");",
+							"});",
+							"",
+							"pm.test(\"Body has _id\", function () {",
+							"    pm.expect(jsonData._id).to.be.a('String');",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/categories/{{category_id}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"categories",
+						"{{category_id}}"
+					]
+				},
+				"description": "Post a Category"
+			},
+			"response": []
+		},
+		{
+			"name": "PATCH a User",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2ba15477-00a7-414b-a857-09d455c7b0d9",
+						"exec": [
+							"var jsonData = pm.response.json();",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Body is correctly formatted\", function () {",
+							"\tpm.expect(jsonData.id).to.eql(\"1\");",
+							"    pm.expect(jsonData.firstName).to.eql(\"Mike\");",
+							"    pm.expect(jsonData.lastName).to.eql(\"Milani\");",
+							"    pm.expect(jsonData.email).to.eql(\"jdoe@gmail.com\");",
+							"    pm.expect(jsonData.password).to.eql(\"password1\");",
+							"});",
+							"",
+							"pm.test(\"Body has _id\", function () {",
+							"    pm.expect(jsonData._id).to.be.a('String');",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"firstName\" : \"Mike\",\n\t\"lastName\" : \"Milani\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/users/{{user_id}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"users",
+						"{{user_id}}"
+					]
+				},
+				"description": "Post a User"
+			},
+			"response": []
+		},
+		{
+			"name": "PATCH a Seller",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2ba15477-00a7-414b-a857-09d455c7b0d9",
+						"exec": [
+							"var jsonData = pm.response.json();",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Body is correctly formatted\", function () {",
+							"\tpm.expect(jsonData.id).to.eql(\"1\");",
+							"\tpm.expect(jsonData.name).to.eql(\"Mary Watson\");",
+							"});",
+							"",
+							"pm.test(\"Body has _id\", function () {",
+							"    pm.expect(jsonData._id).to.be.a('String');",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\" : \"Mary Watson\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/sellers/{{seller_id}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"sellers",
+						"{{seller_id}}"
+					]
+				},
+				"description": "Post a Seller"
+			},
+			"response": []
+		},
+		{
+			"name": "PATCH a Product",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2ba15477-00a7-414b-a857-09d455c7b0d9",
+						"exec": [
+							"var jsonData = pm.response.json();",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Body is correctly formatted\", function () {",
+							"\tvar jsonData = pm.response.json();",
+							"\tpm.expect(jsonData.name).to.eql(\"Cake\");",
+							"    pm.expect(jsonData.description).to.eql(\"A delicious cake\");",
+							"    pm.expect(jsonData.price).to.eql(1.20);",
+							"    pm.expect(jsonData.category.name).to.eql(\"Food\");",
+							"});",
+							"",
+							"pm.test(\"Body has _id\", function () {",
+							"\tvar jsonData = pm.response.json();",
+							"    pm.expect(jsonData._id).to.be.a('String');",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\" : \"Cake\",\n\t\"description\" : \"A delicious cake\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/products/{{product_id}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"products",
+						"{{product_id}}"
+					]
+				},
+				"description": "Post a Product"
+			},
+			"response": []
+		},
+		{
+			"name": "PATCH a Category",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "cedc71d0-3272-4e8c-aa94-5ee1766a3271",
+						"exec": [
+							"var jsonData = pm.response.json();",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Body is correctly formatted\", function () {",
+							"\tpm.expect(jsonData.name).to.eql(\"Electronics\");",
+							"});",
+							"",
+							"pm.test(\"Body has _id\", function () {",
+							"    pm.expect(jsonData._id).to.be.a('String');",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\" : \"Electronics\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/categories/{{category_id}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"categories",
+						"{{category_id}}"
+					]
+				},
+				"description": "Post a Category"
+			},
+			"response": []
+		},
+		{
+			"name": "PUT a User",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2ba15477-00a7-414b-a857-09d455c7b0d9",
+						"exec": [
+							"var jsonData = pm.response.json();",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Body is correctly formatted\", function () {",
+							"\tpm.expect(jsonData.id).to.eql(\"1\");",
+							"    pm.expect(jsonData.firstName).to.eql(\"Mike\");",
+							"    pm.expect(jsonData.lastName).to.eql(\"Milani\");",
+							"    pm.expect(jsonData.email).to.eql(\"mm@gmail.com\");",
+							"    pm.expect(jsonData.password).to.eql(\"password123\");",
+							"});",
+							"",
+							"pm.test(\"Body has _id\", function () {",
+							"    pm.expect(jsonData._id).to.be.a('String');",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"id\" : \"3\",\n\t\"firstName\" : \"Mike\",\n\t\"lastName\" : \"Milani\",\n\t\"email\" : \"mm@gmail.com\",\n\t\"password\" : \"password123\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/users/{{user_id}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"users",
+						"{{user_id}}"
+					]
+				},
+				"description": "Post a User"
+			},
+			"response": []
+		},
+		{
+			"name": "PUT a Seller",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2ba15477-00a7-414b-a857-09d455c7b0d9",
+						"exec": [
+							"var jsonData = pm.response.json();",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Body is correctly formatted\", function () {",
+							"\tpm.expect(jsonData.id).to.eql(\"3\");",
+							"\tpm.expect(jsonData.name).to.eql(\"Mary Watson\");",
+							"});",
+							"",
+							"pm.test(\"Body has _id\", function () {",
+							"    pm.expect(jsonData._id).to.be.a('String');",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"id\" : 3,\n\t\"name\" : \"Mary Watson\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/sellers/{{seller_id}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"sellers",
+						"{{seller_id}}"
+					]
+				},
+				"description": "Post a Seller"
+			},
+			"response": []
+		},
+		{
+			"name": "PUT a Product",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2ba15477-00a7-414b-a857-09d455c7b0d9",
+						"exec": [
+							"var jsonData = pm.response.json();",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Body is correctly formatted\", function () {",
+							"\tvar jsonData = pm.response.json();",
+							"\tpm.expect(jsonData.name).to.eql(\"Cake\");",
+							"    pm.expect(jsonData.description).to.eql(\"A delicious cake\");",
+							"    pm.expect(jsonData.price).to.eql(8.99);",
+							"    pm.expect(jsonData.category.name).to.eql(\"Cakes\");",
+							"});",
+							"",
+							"pm.test(\"Body has _id\", function () {",
+							"\tvar jsonData = pm.response.json();",
+							"    pm.expect(jsonData._id).to.be.a('String');",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\" : \"Cake\",\n\t\"description\" : \"A delicious cake\",\n\t\"price\" : 8.99,\n\t\"category\" : {\n\t\t\"name\" : \"Cakes\"\n\t}\n}"
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/products/{{product_id}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"products",
+						"{{product_id}}"
+					]
+				},
+				"description": "Post a Product"
+			},
+			"response": []
+		},
+		{
+			"name": "PUT a Category",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "cedc71d0-3272-4e8c-aa94-5ee1766a3271",
+						"exec": [
+							"var jsonData = pm.response.json();",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Body is correctly formatted\", function () {",
+							"\tpm.expect(jsonData.name).to.eql(\"Electronics\");",
+							"});",
+							"",
+							"pm.test(\"Body has _id\", function () {",
+							"    pm.expect(jsonData._id).to.be.a('String');",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\" : \"Electronics\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/categories/{{category_id}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"categories",
+						"{{category_id}}"
+					]
+				},
+				"description": "Post a Category"
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE a Review of a Product",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2ba15477-00a7-414b-a857-09d455c7b0d9",
+						"exec": [
+							"var jsonData = pm.response.json();",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/products/{{product_id}}/reviews/{{review_id}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"products",
+						"{{product_id}}",
+						"reviews",
+						"{{review_id}}"
+					]
+				},
+				"description": "Post a Review"
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE a Paymentdata of a User [TOFIX]",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2ba15477-00a7-414b-a857-09d455c7b0d9",
+						"exec": [
+							"var jsonData = pm.response.json();",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Body is correctly formatted\", function () {",
+							"\tpm.expect(jsonData.nameOnCard).to.eql(\"John\");",
+							"    pm.expect(jsonData.cardNumber).to.eql(1234567812345678);",
+							"    pm.expect(jsonData.month).to.eql(10);",
+							"    pm.expect(jsonData.year).to.eql(20);",
+							"});",
+							"",
+							"pm.test(\"Body has _id\", function () {",
+							"    pm.expect(jsonData._id).to.be.a('String');",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/users/{{user_id}}/paymentdatas/{{paymentdata_id}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"users",
+						"{{user_id}}",
+						"paymentdatas",
+						"{{paymentdata_id}}"
+					]
+				},
+				"description": "Post a PaymentData"
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE a User",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2ba15477-00a7-414b-a857-09d455c7b0d9",
+						"exec": [
+							"var jsonData = pm.response.json();",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/users/{{user_id}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"users",
+						"{{user_id}}"
+					]
+				},
+				"description": "Post a User"
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE a Seller",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2ba15477-00a7-414b-a857-09d455c7b0d9",
+						"exec": [
+							"var jsonData = pm.response.json();",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/sellers/{{seller_id}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"sellers",
+						"{{seller_id}}"
+					]
+				},
+				"description": "Post a Seller"
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE a Product",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "cedc71d0-3272-4e8c-aa94-5ee1766a3271",
+						"exec": [
+							"var jsonData = pm.response.json();",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/products/{{product_id}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"products",
+						"{{product_id}}"
+					]
+				},
+				"description": "Post a Category"
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE a Category",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "cedc71d0-3272-4e8c-aa94-5ee1766a3271",
+						"exec": [
+							"var jsonData = pm.response.json();",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\" : \"Food\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/categories/{{category_id}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"categories",
+						"{{category_id}}"
+					]
+				},
+				"description": "Post a Category"
+			},
+			"response": []
+		}
+	]
+}
