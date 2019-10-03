@@ -1,18 +1,19 @@
 <template>
   <b-list-group-item>
-    Description: {{ product.description }}
+    {{ review.text }}
     <br>
-    Price: {{ product.price }}
+    {{ review.rating }} Stars
     <br>
-    Category: {{ product.category.name }}
+    {{ review.date }}
+    <br><br>
   </b-list-group-item>
 </template>
 
 <script>
 
 export default {
-  name: 'product-view',
-  props: ['product']
+  name: 'review-item',
+  props: ['review']
 }
 </script>
 

@@ -1,14 +1,17 @@
 <template>
   <div class="product">
-    <h1>id = {{ id }}</h1>
+    <h1>Product {{ product.name }}</h1>
     <product-view :key="product._id" :product="product"></product-view>
+    <br><br>
+    <h1>Reviews</h1>
+    <review-item v-for="review in product.reviews" :key="review._id" :review="review"></review-item>
   </div>
 </template>
 
 <script>
 import { Api } from '@/Api'
 import ProductView from '@/components/ProductView'
-import router from '../router'
+import ReviewItem from '@/components/ReviewItem'
 
 export default {
   name: 'Product',
@@ -18,19 +21,19 @@ export default {
     }
   },
   mounted() {
-    this.getProduct();
+    this.getProduct()
   },
   created() {
-    this.id = this.$route.params.id;
+    this.id = this.$route.params.id
   },
   methods: {
     getProduct() {
-      Api.get('/products/' + this.id )
+      Api.get('/products/' + this.id)
         .then(reponse => {
           this.product = reponse.data.product
         })
         .catch(error => {
-          this.product = null;
+          this.product = null
           console.log(error)
         })
         .then(() => {
@@ -39,7 +42,8 @@ export default {
     }
   },
   components: {
-    ProductView
+    ProductView,
+    ReviewItem
   }
 }
 </script>
