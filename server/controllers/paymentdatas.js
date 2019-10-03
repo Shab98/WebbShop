@@ -16,7 +16,7 @@ router.get('/', function(req, res, next) {
         if (user.paymentDatas == null) {
             return res.status(404).json({ "message": "Paymentdatas not found" });
         }
-        res.json(user.paymentDatas);
+        res.json({ "paymentDatas" : user.paymentDatas });
     });
 });
 

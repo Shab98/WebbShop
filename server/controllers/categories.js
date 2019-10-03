@@ -6,7 +6,7 @@ var Category = require('../models/category');
 router.get('/', function(req, res, next) {
     Category.find(function(err, categories) {
         if (err) return next(err);
-        res.json(categories);
+        res.json({ "categories" : categories });
     });
 });
 

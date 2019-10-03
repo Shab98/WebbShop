@@ -16,7 +16,7 @@ router.get('/', function(req, res, next) {
         if (product.reviews == null) {
             return res.status(404).json({ "message": "Reviews not found" });
         }
-        res.json(product.reviews);
+        res.json({ "reviews" : product.reviews });
     });
 });
 
