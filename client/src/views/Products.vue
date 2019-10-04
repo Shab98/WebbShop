@@ -18,7 +18,6 @@
             </div>-->
       </div>
     </template>
-    
 <script>
 import { Api } from '@/Api'
 import ProductItem from '@/components/ProductItem'
