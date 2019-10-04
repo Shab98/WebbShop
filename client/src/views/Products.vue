@@ -7,14 +7,15 @@
           <div class="col-sm-12">
             <h2>PRODUCT NAME</h2>
           </div>
-        </div>
-<template v-for="product in products">
-          <div class="row" style="margin-bottom:20px;">
+          </div>
+          <b-list-group>
+            <product-item v-for="product in products"></product-item>
+          </b-list-group>
+          <!--<div class="row" style="margin-bottom:20px;">
             <div class="col-sm-12">
               <p>{{ product.name }}</p>
             </div>
-            </div>
-        </template>
+            </div>-->
       </div>
     </template>
     
