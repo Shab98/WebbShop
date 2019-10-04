@@ -9,7 +9,7 @@
           </div>
           </div>
           <b-list-group>
-            <product-item v-for="product in products"></product-item>
+            <product-item v-for="product in products" :key="product._id" :product="product"></product-item>
           </b-list-group>
           <!--<div class="row" style="margin-bottom:20px;">
             <div class="col-sm-12">
