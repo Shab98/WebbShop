@@ -1,5 +1,8 @@
 <template>
     <b-list-group>
+        <div>
+            <b-button variant="danger" @click="deleteAll">Delete all reviews</b-button>
+        </div>
         <h1>Reviews</h1>
         <div v-if="reviews.length > 0" class="reviews">
             <review-item v-for="review in reviews" :key="review._id" :review="review"></review-item>
@@ -9,7 +12,7 @@
             <form v-on:submit.prevent="submitReview">
                 <input v-model="newReview.text" class="input" type="text" placeholder="Write a review">
                 <select v-model="newReview.rating">
-                    <option selected="selected">1</option>
+                    <option >1</option>
                     <option>2</option>
                     <option>3</option>
                     <option>4</option>
@@ -32,7 +35,7 @@ export default {
       reviews: [],
       newReview: {
         text: '',
-        rating: '',
+        rating: '1',
         date: ''
       }
     }
@@ -62,8 +65,17 @@ export default {
       Api.post('/products/' + this.productId + '/reviews', this.newReview)
         .then(response => {
           this.reviews.push(response.data)
-          console.log('Posted ' + this.newReview)
-          console.log('Got back ' + response.data)
+          this.newReview.text = ''
+          this.newReview.rating = '1'
+        })
+        .catch(error => {
+          console.log(error)
+        })
+    },
+    deleteAll() {
+      Api.delete('/products/' + this.productId + '/reviews')
+        .then(response => {
+          this.reviews = []
         })
         .catch(error => {
           console.log(error)
