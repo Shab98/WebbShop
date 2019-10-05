@@ -2,7 +2,7 @@
   <div class="product">
     <h1>Product {{ product.name }}</h1>
     <product-view :key="product._id" :product="product" @delete-product="deleteProduct"></product-view>
-    <b-button :href="product._id + '/reviews'">Reviews</b-button>
+    <b-button variant="outline-primary" :href="product._id + '/reviews'">Reviews</b-button>
   </div>
 </template>
 

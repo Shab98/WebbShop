@@ -5,6 +5,7 @@
     Price: {{ product.price }}
     <br>
     Category: {{ product.category.name }}
+    <b-button type="button" variant="outline-primary" :href="product._id + '/edit'">Edit product</b-button>
     <b-button type="button" class="close" @click="$emit('delete-product', product._id)">&times;</b-button>
   </b-list-group-item>
 </template>
