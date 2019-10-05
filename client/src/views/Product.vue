@@ -1,17 +1,14 @@
 <template>
   <div class="product">
     <h1>Product {{ product.name }}</h1>
-    <product-view :key="product._id" :product="product"></product-view>
-    <br><br>
-    <h1>Reviews</h1>
-    <review-item v-for="review in product.reviews" :key="review._id" :review="review"></review-item>
+    <product-view :key="product._id" :product="product" @delete-product="deleteProduct"></product-view>
+    <b-button :href="product._id + '/reviews'">Reviews</b-button>
   </div>
 </template>
 
 <script>
 import { Api } from '@/Api'
 import ProductView from '@/components/ProductView'
-import ReviewItem from '@/components/ReviewItem'
 
 export default {
   name: 'Product',
@@ -20,15 +17,15 @@ export default {
       product: null
     }
   },
+  created() {
+    this.productId = this.$route.params.id
+  },
   mounted() {
     this.getProduct()
   },
-  created() {
-    this.id = this.$route.params.id
-  },
   methods: {
     getProduct() {
-      Api.get('/products/' + this.id)
+      Api.get('/products/' + this.productId)
         .then(reponse => {
           this.product = reponse.data.product
         })
@@ -39,22 +36,31 @@ export default {
         .then(() => {
           // This code is always executed (after success or error).
         })
+    },
+    deleteProduct() {
+      Api.delete('/products/' + this.productId)
+        .then(response => {
+          console.log(response.data.message)
+          this.$router.push('/products')
+        })
+        .catch(error => {
+          console.log(error)
+        })
     }
   },
   components: {
-    ProductView,
-    ReviewItem
+    ProductView
   }
 }
 </script>
 
 <style scoped>
-a {
-  color: #42b983;
-}
-.products {
-  margin-left: 5%;
-  margin-right: 5%;
-  margin-bottom: 2em;
-}
+  a {
+    color: #42b983;
+  }
+  .products {
+    margin-left: 5%;
+    margin-right: 5%;
+    margin-bottom: 2em;
+  }
 </style>
