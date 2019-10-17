@@ -6,7 +6,6 @@ var Category = require('./category');
 var Review = require('./review');
 
 var productSchema = new Schema({
-    seller: { type: String, required: true},
     name: { type: String, required: true },
     description: { type: String, required: true },
     price: { type: Number, required: true },

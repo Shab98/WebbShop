@@ -1,6 +1,7 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
+var cors = require('cors');
 
 var productsController = require('./controllers/products');
 var categoriesController = require('./controllers/categories');
@@ -46,6 +47,7 @@ mongoose.connect(mongoURI, { useNewUrlParser: true }, function(err) {
 var app = express();
 // Parse requests of content-type 'application/json'
 app.use(bodyParser.json());
+app.use(cors());
 
 
 // Define routes

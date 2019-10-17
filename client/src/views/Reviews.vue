@@ -12,7 +12,7 @@
             <form v-on:submit.prevent="submitReview">
                 <input v-model="newReview.text" class="input" type="text" placeholder="Write a review">
                 <select v-model="newReview.rating">
-                    <option >1</option>
+                    <option>1</option>
                     <option>2</option>
                     <option>3</option>
                     <option>4</option>

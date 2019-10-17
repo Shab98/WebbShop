@@ -5,7 +5,7 @@
       <input v-model="newProduct.name" class="input" type="text" :placeholder="oldProduct.name">
       <input v-model="newProduct.description" class="input" type="text" :placeholder="oldProduct.description">
       <input v-model="newProduct.price" class="input" type="number" step="0.01" :placeholder="oldProduct.price">
-      <input v-model="newProduct.category.name" class="input" type="text" :placeholder="oldProduct.category.name">
+      <input v-model="newProduct.category.name" class="input" type="text" :placeholder="oldProduct">
       <b-button type="submit">Submit</b-button>
     </form>
   </div>
@@ -62,7 +62,7 @@ export default {
           })
       } else {
         //commented outbecause patch is not working
-        /*
+        
         if (!this.newProduct.name) {
           delete this.newProduct.name
         }
@@ -75,6 +75,7 @@ export default {
         if (!this.newProduct.category.name) {
           delete this.newProduct.category
         }
+      console.log(this.newProduct)
         Api.patch('/products/' + this.productId, this.newProduct)
           .then(response => {
             console.log(response.data.message)
@@ -84,7 +85,11 @@ export default {
             console.log(error)
             console.log(JSON.stringify(this.newProduct))
           })
-          */
+          .then(() => {
+          // This code is always executed (after success or error).
+          console.log(this.productId)
+        })
+          
       }
     }
   }
