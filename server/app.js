@@ -9,10 +9,10 @@ var sellersController = require('./controllers/sellers');
 var usersController = require('./controllers/users');
 
 // Variables
-const dbAddress = "localhost";
+const dbAddress = "user:cocacolabro@cluster0-xywi5.mongodb.net";
 const dbPort = "27017";
 const dbName = "webshop";
-var mongoURI = process.env.MONGODB_URI || `mongodb://${dbAddress}:${dbPort}/${dbName}`;
+var mongoURI = process.env.MONGODB_URI || `mongodb+srv://${dbAddress}/${dbName}`;
 var port = process.env.PORT || 3000;
 
 // Connect to MongoDB
