@@ -3,6 +3,17 @@ var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var cors = require('cors');
 
+// Create Express app
+var app = express();
+app.use(cors());
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", '*');
+    res.header("Access-Control-Allow-Credentials", true);
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
+    res.header("Access-Control-Allow-Headers", 'Origin,X-Requested-With,Content-Type,Accept,content-type,application/json');
+    next();
+});
+
 var productsController = require('./controllers/products');
 var categoriesController = require('./controllers/categories');
 var sellersController = require('./controllers/sellers');
@@ -43,11 +54,9 @@ mongoose.connect(mongoURI, { useNewUrlParser: true }, function(err) {
     category is standalone 
 */
 
-// Create Express app
-var app = express();
+
 // Parse requests of content-type 'application/json'
 app.use(bodyParser.json());
-app.use(cors());
 
 
 // Define routes

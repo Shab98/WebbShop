@@ -61,8 +61,8 @@ export default {
             console.log(error)
           })
       } else {
-        //commented outbecause patch is not working
-        
+        // commented outbecause patch is not working
+
         if (!this.newProduct.name) {
           delete this.newProduct.name
         }
@@ -75,7 +75,7 @@ export default {
         if (!this.newProduct.category.name) {
           delete this.newProduct.category
         }
-      console.log(this.newProduct)
+        console.log(this.newProduct)
         Api.patch('/products/' + this.productId, this.newProduct)
           .then(response => {
             console.log(response.data.message)
@@ -86,10 +86,9 @@ export default {
             console.log(JSON.stringify(this.newProduct))
           })
           .then(() => {
-          // This code is always executed (after success or error).
-          console.log(this.productId)
-        })
-          
+            // This code is always executed (after success or error).
+            console.log(this.productId)
+          })
       }
     }
   }

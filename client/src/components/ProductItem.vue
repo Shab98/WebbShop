@@ -1,5 +1,6 @@
 <template>
   <b-list-group-item>
+    <b-button type="button" class="close" @click="$emit('delete-product', product._id)">&times;</b-button>
     <a :href="'products/'+product._id">{{ product.name }}</a>
   </b-list-group-item>
 </template>
