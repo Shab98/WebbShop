@@ -6,10 +6,11 @@
         <div class="row">
           <div class="col-sm-12">
             <h2>PRODUCT NAME</h2>
+            <b-button type="button" variant="outline-primary" href="products/add">Add product</b-button>
           </div>
           </div>
           <b-list-group>
-            <product-item v-for="product in products" :key="product._id" :product="product"></product-item>
+            <product-item v-for="product in products" :key="product._id" :product="product" @delete-product="deleteProduct"></product-item>
           </b-list-group>
           <!--<div class="row" style="margin-bottom:20px;">
             <div class="col-sm-12">
@@ -43,6 +44,16 @@ export default {
           console.log(error)
         })
         .then(() => {
+        })
+    },
+    deleteProduct(id) {
+      Api.delete('/products/' + id)
+        .then(reponse => {
+          let index = this.products.findIndex(product => product._id === id)
+          this.products.splice(index, 1)
+        })
+        .catch(error => {
+          console.log(error)
         })
     }
   },
