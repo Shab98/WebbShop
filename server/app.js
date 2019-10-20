@@ -1,6 +1,7 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
+var cors = require('cors');
 
 var productsController = require('./controllers/products');
 var categoriesController = require('./controllers/categories');
@@ -8,10 +9,10 @@ var sellersController = require('./controllers/sellers');
 var usersController = require('./controllers/users');
 
 // Variables
-const dbAddress = "localhost";
+const dbAddress = "user:cocacolabro@cluster0-xywi5.mongodb.net";
 const dbPort = "27017";
 const dbName = "webshop";
-var mongoURI = process.env.MONGODB_URI || `mongodb://${dbAddress}:${dbPort}/${dbName}`;
+var mongoURI = process.env.MONGODB_URI || `mongodb+srv://${dbAddress}/${dbName}`;
 var port = process.env.PORT || 3000;
 
 // Connect to MongoDB
@@ -46,11 +47,12 @@ mongoose.connect(mongoURI, { useNewUrlParser: true }, function(err) {
 var app = express();
 // Parse requests of content-type 'application/json'
 app.use(bodyParser.json());
+app.use(cors());
 
 
 // Define routes
 app.get('/api', function(req, res) {
-    res.json({'message': 'Welcome to G7\'s backend ExpressJS project!'});
+    res.json({ 'message': 'Welcome to G7\'s backend ExpressJS project!' });
 });
 app.use('/api/products', productsController);
 app.use('/api/categories', categoriesController);
@@ -58,7 +60,7 @@ app.use('/api/sellers', sellersController);
 app.use('/api/users', usersController);
 
 // Catch all non-error handler for api (i.e., 404 Not Found)
-app.use('/api/*', function (req, res) {
+app.use('/api/*', function(req, res) {
     res.status(404).json({ 'message': 'Not Found' });
 });
 

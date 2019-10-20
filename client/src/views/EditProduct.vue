@@ -7,7 +7,7 @@
       <input v-model="newProduct.price" class="input" type="number" step="0.01" :placeholder="oldProduct.price">
       <input v-model="newProduct.category.name" class="input" type="text" :placeholder="oldProduct.category.name">
       <b-button type="submit">Submit</b-button>
-    </form>
+	</form>
   </div>
 </template>
 
@@ -62,7 +62,7 @@ export default {
           })
       } else {
         //commented outbecause patch is not working
-        /*
+        
         if (!this.newProduct.name) {
           delete this.newProduct.name
         }
@@ -84,7 +84,7 @@ export default {
             console.log(error)
             console.log(JSON.stringify(this.newProduct))
           })
-          */
+          
       }
     }
   }

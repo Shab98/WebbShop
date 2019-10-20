@@ -1,7 +1,7 @@
 <template>
     <b-list-group>
         <div>
-            <b-button variant="danger" @click="deleteAll">Delete all reviews</b-button>
+            <b-button varient="danger" @click="deleteAll">Delete all reviews</b-button>
         </div>
         <h1>Reviews</h1>
         <div v-if="reviews.length > 0" class="reviews">
@@ -96,5 +96,8 @@ a {
   margin-left: 5%;
   margin-right: 5%;
   margin-bottom: 2em;
+}
+.b-button1{
+
 }
 </style>
