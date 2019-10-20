@@ -4,12 +4,6 @@
       <p></p>
       <b-button variant="primary" href="/products">List Products</b-button>
     </b-jumbotron>
-    <b-container>
-     <b-row>
-        <b-col class="table" cols="6" md="6"></b-col>
-        <b-col class="table" cols="12" md="6"></b-col>
-      </b-row>
-    </b-container>
   </div>
 </template>
 

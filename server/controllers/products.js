@@ -3,6 +3,7 @@ var router = express.Router();
 var Product = require('../models/product');
 
 var reviewsController = require('./reviews');
+var sellersController = require('./sellers');
 
 //Return a list of all the products
 router.get('/', function(req, res, next) {
@@ -10,30 +11,30 @@ router.get('/', function(req, res, next) {
     var ordering = req.query.order_by;
     var mySort = null;
 
-    if(sorting == "price") {
+    if (sorting == "price") {
         if (ordering == "asc") {
             ordering = 1;
-        }else if (ordering == "desc") {
+        } else if (ordering == "desc") {
             ordering = -1;
-        }else{
+        } else {
             ordering = 1;
         }
 
         if (sorting == "price") {
-            mySort = { price : ordering };
+            mySort = { price: ordering };
         }
     }
-    
+
     Product.find(function(err, products) {
         if (err) return next(err);
-        res.json({ "products" : products });
+        res.json({ "products": products });
     }).sort(mySort);
 });
 
 //Delete all the products
 router.delete('/', function(req, res, next) {
     var id = req.params.id;
-    Product.remove({}, function(err,response) {
+    Product.remove({}, function(err, response) {
         if (err) { return next(err); }
         res.json(response);
     });
@@ -58,7 +59,7 @@ router.get('/:id', function(req, res, next) {
         if (product == null) {
             return res.status(404).json({ "message": "Product not found" });
         }
-        res.json({ "product" : product });
+        res.json({ "product": product });
     });
 });
 
@@ -90,7 +91,7 @@ router.put('/:id', function(req, res, next) {
             if (err) {
                 console.log(err);
                 res.status(400).send('Bad Request');
-            }else{
+            } else {
                 res.json(product);
             }
         });
@@ -113,7 +114,7 @@ router.patch('/:id', function(req, res, next) {
             if (err) {
                 console.log(err);
                 res.status(400).send('Bad Request');
-            }else{
+            } else {
                 res.json(product);
             }
         });
@@ -125,5 +126,9 @@ router.use('/:id/reviews', function(req, res, next) {
     req.productId = req.params.id;
     next();
 }, reviewsController);
+router.use('/:id/sellers', function(req, res, next) {
+    req.productId = req.params.id;
+    next();
+}, sellersController);
 
 module.exports = router;

@@ -1,7 +1,6 @@
 <template>
   <b-list-group-item>
-    Name:{{ seller.name }}
-    <br><br>
+	  {{ seller.name }}
   </b-list-group-item>
 </template>
 
@@ -9,7 +8,7 @@
 
 export default {
   name: 'seller-item',
-  props: ['seller']
+  props: ['sellers']
 }
 </script>
 

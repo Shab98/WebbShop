@@ -57,11 +57,12 @@ mongoose.connect(mongoURI, { useNewUrlParser: true }, function(err) {
 
 // Parse requests of content-type 'application/json'
 app.use(bodyParser.json());
+app.use(cors());
 
 
 // Define routes
 app.get('/api', function(req, res) {
-    res.json({'message': 'Welcome to G7\'s backend ExpressJS project!'});
+    res.json({ 'message': 'Welcome to G7\'s backend ExpressJS project!' });
 });
 app.use('/api/products', productsController);
 app.use('/api/categories', categoriesController);
@@ -69,7 +70,7 @@ app.use('/api/sellers', sellersController);
 app.use('/api/users', usersController);
 
 // Catch all non-error handler for api (i.e., 404 Not Found)
-app.use('/api/*', function (req, res) {
+app.use('/api/*', function(req, res) {
     res.status(404).json({ 'message': 'Not Found' });
 });
 

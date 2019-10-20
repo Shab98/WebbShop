@@ -7,7 +7,7 @@
       <input v-model="newProduct.price" class="input" type="number" step="0.01" :placeholder="oldProduct.price">
       <input v-model="newProduct.category.name" class="input" type="text" :placeholder="oldProduct">
       <b-button type="submit">Submit</b-button>
-    </form>
+	</form>
   </div>
 </template>
 
