@@ -28,9 +28,9 @@ export default {
         category: {
           name: ''
         },
-        seller: {
+        seller: [{
           name: ''
-        }
+        }]
       }
     }
   },

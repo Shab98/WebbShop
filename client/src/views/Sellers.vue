@@ -37,7 +37,7 @@ export default {
       Api.get('/products/' + this.productId + '/sellers')
         .then(reponse => {
           console.log(this.productId)
-          this.sellers = reponse.data.seller
+          this.sellers = reponse.data.sellers
           console.log(this.sellers)
         })
         .catch(error => {
