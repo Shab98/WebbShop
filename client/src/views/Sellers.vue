@@ -1,7 +1,3 @@
-/* eslint-disable eol-last */
-/* eslint-disable indent */
-/* eslint-disable no-tabs */
-/* eslint-disable */
 <template>
   <div class="sellers">
     <div class="title" style="margin-bottom:40px;">
@@ -12,7 +8,8 @@
         <h2>Seller name</h2>
       </div>
     </div>
-    <b-list-group><b>{{sellers[0].name}}</b></b-list-group>
+    <b-list-group v-if="sellers.length>0"><b>{{sellers[0].name}}</b></b-list-group>
+    <b-list-group v-else><b>The product has no seller right now</b></b-list-group>
   </div>
 </template>
 
