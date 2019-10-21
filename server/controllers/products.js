@@ -87,7 +87,7 @@ router.put('/:id', function(req, res, next) {
         product.price = req.body.price;
         product.category = req.body.category;
         product.reviews = req.body.reviews;
-        product.seller = req.body.seller;
+        product.sellers = req.body.sellers;
         product.save(function(err) {
             if (err) {
                 console.log(err);
@@ -111,7 +111,7 @@ router.patch('/:id', function(req, res, next) {
         product.description = (req.body.description || product.description);
         product.price = (req.body.price || product.price);
         product.category = (req.body.category || product.category);
-        product.seller = (req.body.seller || product.seller);
+        product.sellers = (req.body.sellers || product.sellers);
         product.save(function(err) {
             if (err) {
                 console.log(err);

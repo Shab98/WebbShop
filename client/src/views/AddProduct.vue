@@ -7,7 +7,7 @@
       <input v-model="newProduct.price" class="input" type="number" step="0.01" placeholder="Price" required>
       <input v-model="newProduct.category.name" class="input" type="text" placeholder="Category" required>
       <br>
-      <input v-model="newProduct.seller.name" class="input" type="text" placeholder="Seller">
+      <input v-model="newProduct.sellers[0].name" class="input" type="text" placeholder="Seller">
       <hr>
       <b-button type="submit">Submit</b-button>
     </form>
@@ -28,7 +28,7 @@ export default {
         category: {
           name: ''
         },
-        seller: [{
+        sellers: [{
           name: ''
         }]
       }

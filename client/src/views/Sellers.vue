@@ -12,7 +12,7 @@
         <h2>Seller name</h2>
       </div>
     </div>
-    <b-list-group>{{sellers}}</b-list-group>
+    <b-list-group><b>{{sellers[0].name}}</b></b-list-group>
   </div>
 </template>
 
