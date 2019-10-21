@@ -6,6 +6,9 @@
       <input v-model="newProduct.description" class="input" type="text" placeholder="Description" required>
       <input v-model="newProduct.price" class="input" type="number" step="0.01" placeholder="Price" required>
       <input v-model="newProduct.category.name" class="input" type="text" placeholder="Category" required>
+      <br>
+      <input v-model="newProduct.seller.name" class="input" type="text" placeholder="Seller">
+      <hr>
       <b-button type="submit">Submit</b-button>
     </form>
   </div>
@@ -24,13 +27,16 @@ export default {
         price: '',
         category: {
           name: ''
+        },
+        seller: {
+          name: ''
         }
       }
     }
   },
   methods: {
     submitProduct() {
-      Api.post('/products',this.newProduct)
+      Api.post('/products', this.newProduct)
         .then(reponse => {
           this.$router.push('/products')
         })

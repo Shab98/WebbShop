@@ -3,11 +3,13 @@ var Schema = mongoose.Schema;
 
 //Needed modules
 var Category = require('./category');
+var Seller = require('./seller');
 var Review = require('./review');
 var Seller = require('./seller');
 
 
 var productSchema = new Schema({
+    seller: { type: Seller.schema },
     name: { type: String, required: true },
     description: { type: String, required: true },
     price: { type: Number, required: true },
