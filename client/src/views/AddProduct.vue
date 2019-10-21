@@ -36,7 +36,6 @@ export default {
   },
   methods: {
     submitProduct() {
-      console.log(this.newProduct)
       Api.post('/products', this.newProduct)
         .then(reponse => {
           this.$router.push('/products')
