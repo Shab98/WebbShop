@@ -5,6 +5,8 @@ var Schema = mongoose.Schema;
 var Category = require('./category');
 var Seller = require('./seller');
 var Review = require('./review');
+var Seller = require('./seller');
+
 
 var productSchema = new Schema({
     seller: { type: Seller.schema },
