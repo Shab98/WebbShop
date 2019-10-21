@@ -3,7 +3,7 @@
     <h1>Product {{ product.name }}</h1>
     <product-view :key="product._id" :product="product" @delete-product="deleteProduct"></product-view>
     <b-button variant="outline-primary" :href="product._id + '/reviews'">Reviews</b-button>
-	<b-button variant="outline-primary" :href="product._id + '/seller'">Seller</b-button>
+    <b-button variant="outline-primary" :href="product._id + '/seller'">Seller</b-button>
   </div>
 </template>
 
@@ -56,15 +56,14 @@ export default {
 </script>
 
 <style scoped>
-  a {
-    color: #42b983;
-  }
-  #products {
-    margin-left: 20%;
-    margin-right: 20%;
-    margin-bottom: 4em;
-  }
-  .b-button{
-	  
-  }
+a {
+  color: #42b983;
+}
+#products {
+  margin-left: 20%;
+  margin-right: 20%;
+  margin-bottom: 4em;
+}
+.b-button {
+}
 </style>

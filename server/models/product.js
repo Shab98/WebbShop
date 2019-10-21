@@ -14,8 +14,7 @@ var productSchema = new Schema({
     description: { type: String, required: true },
     price: { type: Number, required: true },
     category: { type: Category.schema, required: true }, //Category is required for a product to exist!!! Design decision, can be changed
-    reviews: { type: [Review.schema] },
-    sellers: { type: [Seller.schema] }
+    reviews: { type: [Review.schema] }
 });
 
 module.exports = mongoose.model('products', productSchema);

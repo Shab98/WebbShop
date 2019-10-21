@@ -3,31 +3,28 @@
 /* eslint-disable no-tabs */
 /* eslint-disable */
 <template>
-        <div class="sellers">
-			   <div class="title" style="margin-bottom:40px;">
-          <h1>Seller</h1>
-        </div>
-            <div class="row">
-          <div class="col-sm-12">
-            <h2>Seller name</h2>
-          </div>
-        </div>
-		<b-list-group>
-			{{sellers}}
-          </b-list-group>
-		</div>
+  <div class="sellers">
+    <div class="title" style="margin-bottom:40px;">
+      <h1>Seller</h1>
+    </div>
+    <div class="row">
+      <div class="col-sm-12">
+        <h2>Seller name</h2>
+      </div>
+    </div>
+    <b-list-group>{{sellers}}</b-list-group>
+  </div>
 </template>
 
 <script>
 import { Api } from '@/Api'
-import SellerItem from '@/components/SellerItem'
 
 export default {
   name: 'Seller',
   data() {
     return {
-	  sellers: []
-      }
+      sellers: []
+    }
   },
   created() {
     this.productId = this.$route.params.id
@@ -37,25 +34,20 @@ export default {
   },
   methods: {
     getSellers() {
-	  Api.get('/products/' + this.productId + '/sellers')
+      Api.get('/products/' + this.productId + '/sellers')
         .then(reponse => {
-		  console.log(this.productId)
-		  this.sellers = reponse.data.sellers
-		  console.log(this.sellers)
+          console.log(this.productId)
+          this.sellers = reponse.data.sellers
+          console.log(this.sellers)
         })
         .catch(error => {
-		  this.sellers = []
+          this.sellers = []
           console.log(error)
         })
-        .then(() => {
-        })
-	}
-  },
-  components: {
-    SellerItem
+        .then(() => {})
+    }
+  }
 }
-}
-
 </script>
 
 <style scoped>
